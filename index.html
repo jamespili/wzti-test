@@ -39,7 +39,7 @@ body { font-family: var(--font-sans); background-color: #fafafa; color: var(--co
 .q-text { font-size: 20px; font-weight: 600; color: var(--color-text-primary); line-height: 1.5; margin-bottom: 0.5rem; }
 .q-hint { font-size: 14px; color: #888; margin-bottom: 2rem; }
 .opts { display: flex; flex-direction: column; gap: 12px; }
-.opt-btn { background: var(--color-background-primary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 16px 20px; text-align: left; cursor: pointer; font-size: 15px; font-weight: 500; color: var(--color-text-primary); transition: all 0.2s; }
+.opt-btn { background: var(--color-background-primary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 16px 20px; text-align: left; cursor: pointer; font-size: 15px; font-weight: 500; color: var(--color-text-primary); transition: all 0.2s; line-height: 1.5;}
 .opt-btn:hover { background: var(--color-background-secondary); transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.04);}
 
 .result-card { background: var(--color-background-primary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.04);}
@@ -74,7 +74,7 @@ body { font-family: var(--font-sans); background-color: #fafafa; color: var(--co
     <div class="hero">
       <div class="hero-badge">WZTI · 职场阴暗面</div>
       <h1>发现你的<br>打工人格 V2.0</h1>
-      <p>抛弃职场虚伪滤镜<br>测测你在老板眼里的“真实”模样</p>
+      <p>抛弃职场虚伪滤镜<br>测测你在公司真实的“生存状态”</p>
       <button class="start-btn" onclick="startTest()">开始测试 →</button>
     </div>
   </div>
@@ -102,7 +102,7 @@ body { font-family: var(--font-sans); background-color: #fafafa; color: var(--co
 </div>
 
 <script>
-// 问题库保持不变
+// 精修扩写版题库
 const questions = [
   { 
     text: "每天早上，你是怎么起床的？", 
@@ -287,6 +287,25 @@ const questions = [
   }
 ];
 
+// 15种暗黑人格库
+const types = [
+  { code: "DEAD", name: "死者", color: "#000000", desc: "其实你三年前就心肌梗塞死在工位上了。现在的你只是由于长期吹空调产生的物理惯性在进行某种名为“打工”的反射。安息吧。", tags: ["魂归西天", "僵尸代码", "物理惯性"], poster: "16Personalities风格。一个写着“已黑化”的棺材放在工位中央，里面伸出一只白骨手在操作鼠标。深黑色背景。", cond: s => s.内耗 >= 20 },
+  { code: "IMSB", name: "自我攻击者", color: "#607D8B", desc: "老板还没开口，你已经把自己骂得体无完肤。你不是在内耗，你是在体内举办自己的葬礼，顺便还给自己烧了纸。", tags: ["自卑巅峰", "道歉机器", "内心火葬场"], poster: "16Personalities风格。Q版小人拿着一把像素剑刺向自己的影子，背景是满屏密密麻麻的“对不起”。深灰色背景。", cond: s => s.内耗 >= 16 },
+  { code: "FUCK", name: "草者", color: "#4CAF50", desc: "头顶绿草，心中全是草泥马。只要我不努力，老板就永远别想割到我的韭菜。你的存在就是为了让公司的绩效看起来像个笑话。", tags: ["原地躺平", "植物人状态", "拒绝被卷"], poster: "16Personalities风格。脑袋上顶着一盆茂盛的绿草，表情呆滞，手里举着一根正在枯萎的工资条。浅绿色背景。", cond: s => s.摸鱼 >= 16 },
+  { code: "SOLO", name: "孤儿", color: "#212121", desc: "你没有同事，没有朋友。你所在的部门只有你一个人。你就像是公司里的一块瓷砖，存在感极低，但被踩得很疼。", tags: ["单机玩家", "全栈孤狼", "查无此人"], poster: "16Personalities风格。一个人坐在黑漆漆的屏幕前，周围是无尽的黑暗，只有屏幕的光照亮你的老脸。纯黑背景。", cond: s => s.社恐 >= 16 },
+  { code: "FAKE", name: "伪人", color: "#FFEB3B", desc: "你是一台完美的模仿机器。模仿在干活，模仿在开会，模仿在思考。除了想下班的欲望是真的，其余一切都是假的。", tags: ["皮囊大师", "假装在线", "系统镜像"], poster: "16Personalities风格。小人摘下面具，里面还是一个一模一样的面具，背景是无数虚假的“收到”。明黄色背景。", cond: s => s.务虚 > 14 && s.勤奋 < 6 },
+  { code: "SHIT", name: "狗屎人", color: "#795548", desc: "干啥啥不行，坏事第一名。你走过的地方，代码会崩溃，饮水机会断水。你是职场中移动的“逻辑黑洞”。", tags: ["职场瘟神", "逻辑粉碎机", "搅屎棍"], poster: "16Personalities风格。小人踩在一坨巨大的像素便便上，背景是正在爆炸的服务器和尖叫的甲方。深棕色背景。", cond: s => s.摸鱼 > 12 && s.内耗 > 10 },
+  { code: "WOC!", name: "握草人", color: "#009688", desc: "你的一生都在震惊中度过。老板发消息：WOC！同事甩锅：WOC！这种公司居然还没倒闭：WOC！", tags: ["捧场王", "情绪极化", "只会这一句"], poster: "16Personalities风格。小人抓着头发，嘴巴张成一个巨大的O型，背景全是发光的绿色惊叹号。青绿色背景。", cond: s => s.内耗 > 12 && s.社恐 > 10 },
+  { code: "DRUN-K", name: "酒鬼", color: "#7E57C2", desc: "不喝两口根本没法面对这些需求。你清醒的时候工作极差，喝醉了反而能写出完美的方案，因为这时候你也看不清甲方在说什么了。", tags: ["宿醉办公", "精神麻醉", "摇摇晃晃"], poster: "16Personalities风格。小人抱着一个巨大的伏特加酒桶，背景是重叠幻象的Excel表格。深紫色背景。", cond: s => s.摸鱼 > 12 && s.务虚 > 10 },
+  { code: "ZZZZ", name: "装死者", color: "#BDBDBD", desc: "只要我躺得够平，老板的鞭子就永远抽不到我。任何紧急任务，只要我装死够久，它就会自动顺延给那个叫SADG的倒霉蛋。", tags: ["由于太闲而忙碌", "假装断网", "生存大师"], poster: "16Personalities风格。小人趴在桌上一动不动，背景是堆成山的垃圾邮件。浅灰色背景。", cond: s => s.摸鱼 > 12 && s.社恐 > 8 },
+  { code: "MALO", name: "吗喽", color: "#6D4C41", desc: "你就是一只听话的吗喽。给个香蕉就干活，不给香蕉就原地发疯。生活就是一场大型马戏团杂耍，你是那个最卖力的。", tags: ["吗喽文化", "听话好使", "眼神清澈的蠢"], poster: "16Personalities风格。一只穿着格子衫的猴子正对着屏幕狂敲，手里还攥着一根烂了半截的香蕉。深棕色背景。", cond: s => s.勤奋 >= 12 && s.内耗 >= 8 },
+  { code: "ATM1", name: "送钱者", color: "#FF5252", desc: "你上班不是为了赚钱，是为了把医保扣完。你每个月发的工资最后都通过打车费和药费还给了社会，你是职场慈善家。", tags: ["纯纯倒贴", "用命换钱", "感动中国"], poster: "16Personalities风格。小人手里拿着大叠钞票往碎纸机里狂塞，表情充满圣洁感。淡红色背景。", cond: s => s.勤奋 > 12 && s.内耗 < 4 },
+  { code: "ATM2", name: "ATM机", color: "#00BCD4", desc: "你不是在上班，你是在给老板的法拉利众筹。你的每一滴汗水都化作了老板在马尔代夫的每一粒沙子。", tags: ["人肉提款机", "老板逆子", "无私奉献"], poster: "16Personalities风格。小人胸口裂开一个缝往外吐金币，老板在旁边用麻袋接。深蓝色背景。", cond: s => s.务虚 > 10 && s.勤奋 > 10 && s.内耗 < 5 },
+  { code: "Dior-s", name: "屌丝", color: "#8D6E63", desc: "虽然自称职场精英，但内心深处知道自己只是一抹顽强的尘埃。便宜、好用、随叫随到，是你最后的倔强。", tags: ["底层本色", "自嘲之王", "职场底片"], poster: "16Personalities风格。小人坐在路边吃辣条，手里拿一个破旧手机写着“全靠自律”。棕褐色背景。", cond: s => s.勤奋 > 8 && s.摸鱼 > 8 && s.内耗 > 8 },
+  { code: "OJB-K", name: "无所谓人", color: "#FF9800", desc: "你已经超脱了。老板骂你你点头，同事卷你你退休。你不是心态好，你是已经对这个世界彻底失望了。", tags: ["随波逐流", "无欲无求", "活着就行"], poster: "16Personalities风格。身体像果冻瘫在工位，手势永远是OK，双眼呈灰白色。明橙色背景。", cond: s => (s.勤奋 + s.内耗 + s.务虚) < 14 },
+  { code: "QUIT", name: "辞职狂热者", color: "#F44336", desc: "每天在心里辞职800次，写了500封辞职信从未点击发送。脚被房贷链条锁在桌腿上。", tags: ["口嗨专家", "精神离职", "准时下班"], poster: "16Personalities风格。小人背着行囊正要踏出门，脚却被写着“房贷”的链条锁在桌腿。红色背景。", cond: s => true }
+];
+
 let scores = {勤奋: 0, 摸鱼: 0, 社恐: 0, 务虚: 0, 内耗: 0};
 let current = 0;
 
@@ -337,7 +356,10 @@ function showResult() {
     <div class="result-desc">${type.desc}</div>
     <div class="tag-row">${type.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
     <div class="poster-box" style="border-left-color: ${type.color}">
-      <div class="poster-title">16Personalities 画风灵感</div>
+      <div class="poster-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        16Personalities 画风灵感
+      </div>
       <div class="poster-desc">${type.poster}</div>
     </div>
   `;
