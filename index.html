@@ -53,12 +53,13 @@ body { font-family: var(--font-sans); background-color: #fafafa; color: var(--co
 .poster-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 6px;}
 .poster-img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 
+/* 新增的内部OS样式 */
 .result-body { padding: 2rem; border-top: 1px solid var(--color-border-tertiary); background: var(--color-background-secondary);}
-.dim-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.dim-label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); width: 40px; flex-shrink: 0; }
-.dim-track { flex: 1; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
-.dim-fill { height: 100%; border-radius: 4px; transition: width 1s; }
-.dim-val { font-size: 13px; font-weight: 600; color: var(--color-text-primary); width: 24px; text-align: right; }
+.inner-voice-box { background: var(--color-background-primary); border: 1px dashed #ccc; border-radius: var(--border-radius-md); padding: 1.5rem 1.5rem 2rem; position: relative; text-align: center;}
+.inner-voice-title { font-size: 13px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;}
+.inner-voice-text { font-size: 16px; line-height: 1.6; color: var(--color-text-primary); font-weight: 500;}
+.inner-voice-text::before { content: '“'; font-size: 32px; color: #e0e0e0; font-family: serif; position: absolute; top: 2.5rem; left: 1rem;}
+.inner-voice-text::after { content: '”'; font-size: 32px; color: #e0e0e0; font-family: serif; position: absolute; bottom: 0.5rem; right: 1rem;}
 
 .retry-btn { width: 100%; border: 1px solid var(--color-text-primary); border-radius: 999px; background: transparent; font-size: 16px; font-weight: 600; color: var(--color-text-primary); padding: 14px; cursor: pointer; transition: all 0.2s; }
 .retry-btn:hover { background: var(--color-text-primary); color: #fff; }
@@ -73,7 +74,7 @@ body { font-family: var(--font-sans); background-color: #fafafa; color: var(--co
   <div class="screen active" id="home-screen">
     <div class="hero">
       <div class="hero-badge">WZTI · 职场阴暗面</div>
-      <h1>发现你的<br>打工人格 V2.0</h1>
+      <h1>发现你的<br>打工人格</h1>
       <p>抛弃职场虚伪滤镜<br>测测你在公司真实的“生存状态”</p>
       <button class="start-btn" onclick="startTest()">开始测试 →</button>
     </div>
@@ -93,9 +94,7 @@ body { font-family: var(--font-sans); background-color: #fafafa; color: var(--co
   <div class="screen" id="result-screen">
     <div class="result-card">
       <div class="result-header" id="r-header"></div>
-      <div class="result-body">
-        <div id="dims-list"></div>
-      </div>
+      <div class="result-body" id="r-body"></div>
     </div>
     <button class="retry-btn" onclick="restart()">我不服，再测一次</button>
   </div>
@@ -125,23 +124,23 @@ const questions = [
   { text: "最后一题：看到这是最后一题，你的感受是？", hint: "（请诚实作答，这道题很关键）", opts: [{text: "如释重负，赶紧交卷看看自己到底是哪种奇葩，希望能准一点", scores: {勤奋: 0, 摸鱼: 2, 社恐: 0, 务虚: 0, 内耗: 1}}, {text: "内心毫无波澜，这种测试做过几百个了，也就是个打发上班时间的乐子", scores: {勤奋: 1, 摸鱼: 1, 社恐: 0, 务虚: 2, 内耗: 0}}, {text: "陷入沉思：我刚才第7题是不是选得太保守了？结果会不会不准确？要重做吗？", scores: {勤奋: 0, 摸鱼: 0, 社恐: 0, 务虚: 0, 内耗: 3}}, {text: "非常满意，因为做这20道题成功帮我消耗了大约8分钟的带薪工作时间", scores: {勤奋: 0, 摸鱼: 3, 社恐: 0, 务虚: 0, 内耗: 0}}] }
 ];
 
-// 已全部替换为你截图中的精确文件名
+// 新增了 quote 字段，用来输出每个打工人的内心独白
 const types = [
-  { code: "DEAD", name: "死者", color: "#000000", desc: "其实你三年前就心肌梗塞死在工位上了。现在的你只是由于长期吹空调产生的物理惯性在进行某种名为“打工”的反射。安息吧。", tags: ["魂归西天", "僵尸代码", "物理惯性"], img: "dead.png", cond: s => s.内耗 >= 20 },
-  { code: "IMSB", name: "自我攻击者", color: "#607D8B", desc: "老板还没开口，你已经把自己骂得体无完肤。你不是在内耗，你是在体内举办自己的葬礼，顺便还给自己烧了纸。", tags: ["自卑巅峰", "道歉机器", "内心火葬场"], img: "IMSB.png", cond: s => s.内耗 >= 16 },
-  { code: "FUCK", name: "草者", color: "#4CAF50", desc: "头顶绿草，心中全是草泥马。只要我不努力，老板就永远别想割到我的韭菜。你的存在就是为了让公司的绩效看起来像个笑话。", tags: ["原地躺平", "植物人状态", "拒绝被卷"], img: "FUCK.png", cond: s => s.摸鱼 >= 16 },
-  { code: "SOLO", name: "孤儿", color: "#212121", desc: "你没有同事，没有朋友。你所在的部门只有你一个人。你就像是公司里的一块瓷砖，存在感极低，但被踩得很疼。", tags: ["单机玩家", "全栈孤狼", "查无此人"], img: "SOLO.png", cond: s => s.社恐 >= 16 },
-  { code: "FAKE", name: "伪人", color: "#FFEB3B", desc: "你是一台完美的模仿机器。模仿在干活，模仿在开会，模仿在思考。除了想下班的欲望是真的，其余一切都是假的。", tags: ["皮囊大师", "假装在线", "系统镜像"], img: "FAKE.png", cond: s => s.务虚 > 14 && s.勤奋 < 6 },
-  { code: "SHIT", name: "狗屎人", color: "#795548", desc: "干啥啥不行，坏事第一名。你走过的地方，代码会崩溃，饮水机会断水。你是职场中移动的“逻辑黑洞”。", tags: ["职场瘟神", "逻辑粉碎机", "搅屎棍"], img: "SHIT.png", cond: s => s.摸鱼 > 12 && s.内耗 > 10 },
-  { code: "WOC!", name: "握草人", color: "#009688", desc: "你的一生都在震惊中度过。老板发消息：WOC！同事甩锅：WOC！这种公司居然还没倒闭：WOC！", tags: ["捧场王", "情绪极化", "只会这一句"], img: "WOC!.png", cond: s => s.内耗 > 12 && s.社恐 > 10 },
-  { code: "DRUN-K", name: "酒鬼", color: "#7E57C2", desc: "不喝两口根本没法面对这些需求。你清醒的时候工作极差，喝醉了反而能写出完美的方案，因为这时候你也看不清甲方在说什么了。", tags: ["宿醉办公", "精神麻醉", "摇摇晃晃"], img: "DRUN-K).png", cond: s => s.摸鱼 > 12 && s.务虚 > 10 },
-  { code: "ZZZZ", name: "装死者", color: "#BDBDBD", desc: "只要我躺得够平，老板的鞭子就永远抽不到我。任何紧急任务，只要我装死够久，它就会自动顺延给那个叫SADG的倒霉蛋。", tags: ["由于太闲而忙碌", "假装断网", "生存大师"], img: "ZZZZ.png", cond: s => s.摸鱼 > 12 && s.社恐 > 8 },
-  { code: "MALO", name: "吗喽", color: "#6D4C41", desc: "你就是一只听话的吗喽。给个香蕉就干活，不给香蕉就原地发疯。生活就是一场大型马戏团杂耍，你是那个最卖力的。", tags: ["吗喽文化", "听话好使", "眼神清澈的蠢"], img: "MALO.png", cond: s => s.勤奋 >= 12 && s.内耗 >= 8 },
-  { code: "ATM1", name: "送钱者", color: "#FF5252", desc: "你上班不是为了赚钱，是为了把医保扣完。你每个月发的工资最后都通过打车费和药费还给了社会，你是职场慈善家。", tags: ["纯纯倒贴", "用命换钱", "感动中国"], img: "ATM1.png", cond: s => s.勤奋 > 12 && s.内耗 < 4 },
-  { code: "ATM2", name: "ATM机", color: "#00BCD4", desc: "你不是在上班，你是在给老板的法拉利众筹。你的每一滴汗水都化作了老板在马尔代夫的每一粒沙子。", tags: ["人肉提款机", "老板逆子", "无私奉献"], img: "ATM2.png", cond: s => s.务虚 > 10 && s.勤奋 > 10 && s.内耗 < 5 },
-  { code: "Dior-s", name: "屌丝", color: "#8D6E63", desc: "虽然自称职场精英，但内心深处知道自己只是一抹顽强的尘埃。便宜、好用、随叫随到，是你最后的倔强。", tags: ["底层本色", "自嘲之王", "职场底片"], img: "Dior-s.png", cond: s => s.勤奋 > 8 && s.摸鱼 > 8 && s.内耗 > 8 },
-  { code: "OJB-K", name: "无所谓人", color: "#FF9800", desc: "你已经超脱了。老板骂你你点头，同事卷你你退休。你不是心态好，你是已经对这个世界彻底失望了。", tags: ["随波逐流", "无欲无求", "活着就行"], img: "OJB-K.png", cond: s => (s.勤奋 + s.内耗 + s.务虚) < 14 },
-  { code: "QUIT", name: "辞职狂热者", color: "#F44336", desc: "每天在心里辞职800次，写了500封辞职信从未点击发送。脚被房贷链条锁在桌腿上。", tags: ["口嗨专家", "精神离职", "准时下班"], img: "QUIT.png", cond: s => true }
+  { code: "SHIT", name: "狗屎人", color: "#795548", desc: "干啥啥不行，坏事第一名。你走过的地方，代码会崩溃，饮水机会断水。你是职场中移动的“逻辑黑洞”。", tags: ["职场瘟神", "逻辑粉碎机", "搅屎棍"], img: "SHIT.png", quote: "我也不想这样啊，但我敲的每一行代码都有它自己的想法。只要我不尴尬，崩溃的就是甲方。", cond: s => s.摸鱼 >= 18 && s.内耗 >= 18 },
+  { code: "MALO", name: "吗喽", color: "#6D4C41", desc: "你就是一只听话的吗喽。给个香蕉就干活，不给香蕉就原地发疯。生活就是一场大型马戏团杂耍，你是那个最卖力的。", tags: ["吗喽文化", "听话好使", "眼神清澈的蠢"], img: "MALO.png", quote: "斯哈斯哈，老板给香蕉了，我敲敲敲敲敲！等下，香蕉怎么只有半根？不管了，先发个疯再说！", cond: s => s.勤奋 >= 18 && s.内耗 >= 18 },
+  { code: "ATM2", name: "ATM机", color: "#00BCD4", desc: "你不是在上班，你是在给老板的法拉利众筹。你的每一滴汗水都化作了老板在马尔代夫的每一粒沙子。", tags: ["人肉提款机", "老板逆子", "无私奉献"], img: "ATM2.png", quote: "我是一块砖，哪里需要哪里搬；我是一棵韭，老板割完还能长。老板的帕拉梅拉，有我一个轮胎的功劳！", cond: s => s.务虚 >= 15 && s.勤奋 >= 15 && s.内耗 < 10 },
+  { code: "DRUN-K", name: "酒鬼", color: "#7E57C2", desc: "不喝两口根本没法面对这些需求。你清醒的时候工作极差，喝醉了反而能写出完美的方案，因为这时候你也看不清甲方在说什么了。", tags: ["宿醉办公", "精神麻醉", "摇摇晃晃"], img: "DRUN-K).png", quote: "清醒的人在这个职场是活不下去的。这需求写得跟天书一样，不整两口我怎么跟甲方灵魂共振？", cond: s => s.摸鱼 >= 15 && s.务虚 >= 15 },
+  { code: "WOC!", name: "握草人", color: "#009688", desc: "你的一生都在震惊中度过。老板发消息：WOC！同事甩锅：WOC！这种公司居然还没倒闭：WOC！", tags: ["捧场王", "情绪极化", "只会这一句"], img: "WOC!.png", quote: "除了『握草』，我已经丧失了其他语言能力。这破公司每天都能给我整点新花样，绝了。", cond: s => s.内耗 >= 15 && s.社恐 >= 15 },
+  { code: "DEAD", name: "死者", color: "#000000", desc: "其实你三年前就心肌梗塞死在工位上了。现在的你只是由于长期吹空调产生的物理惯性在进行某种名为“打工”的反射。安息吧。", tags: ["魂归西天", "僵尸代码", "物理惯性"], img: "dead.png", quote: "如果工位能长出蘑菇，我头上大概已经是一片森林了。别吵，我在靠空调续命。", cond: s => s.内耗 === Math.max(...Object.values(s)) && s.内耗 >= 25 },
+  { code: "FUCK", name: "草者", color: "#4CAF50", desc: "头顶绿草，心中全是草泥马。只要我不努力，老板就永远别想割到我的韭菜。你的存在就是为了让公司的绩效看起来像个笑话。", tags: ["原地躺平", "植物人状态", "拒绝被卷"], img: "FUCK.png", quote: "只要我不发力，资本家就剥削不到我。今天也是成功把公司羊毛薅秃的一天，嘿嘿。", cond: s => s.摸鱼 === Math.max(...Object.values(s)) && s.摸鱼 >= 25 },
+  { code: "SOLO", name: "孤儿", color: "#212121", desc: "你没有同事，没有朋友。你所在的部门只有你一个人。你就像是公司里的一块瓷砖，存在感极低，但被踩得很疼。", tags: ["单机玩家", "全栈孤狼", "查无此人"], img: "SOLO.png", quote: "别跟我说话，别拉我进群，别叫我聚餐。代码和文档是我的结界，人类只会让我掉电。", cond: s => s.社恐 === Math.max(...Object.values(s)) && s.社恐 >= 20 },
+  { code: "FAKE", name: "伪人", color: "#FFEB3B", desc: "你是一台完美的模仿机器。模仿在干活，模仿在开会，模仿在思考。除了想下班的欲望是真的，其余一切都是假的。", tags: ["皮囊大师", "假装在线", "系统镜像"], img: "FAKE.png", quote: "『收到，好的，没问题』——已触发自动回复机制。面具戴久了，我都忘了自己本来到底想骂什么。", cond: s => s.务虚 === Math.max(...Object.values(s)) && s.务虚 >= 20 },
+  { code: "IMSB", name: "自我攻击者", color: "#607D8B", desc: "老板还没开口，你已经把自己骂得体无完肤。你不是在内耗，你是在体内举办自己的葬礼，顺便还给自己烧了纸。", tags: ["自卑巅峰", "道歉机器", "内心火葬场"], img: "IMSB.png", quote: "对不起，我又呼吸了公司的空气。刚刚老板皱眉肯定是因为我昨天左脚先踏进公司，都是我的错…", cond: s => s.内耗 === Math.max(...Object.values(s)) },
+  { code: "ZZZZ", name: "装死者", color: "#BDBDBD", desc: "只要我躺得够平，老板的鞭子就永远抽不到我。任何紧急任务，只要我装死够久，它就会自动顺延给那个叫SADG的倒霉蛋。", tags: ["由于太闲而忙碌", "假装断网", "生存大师"], img: "ZZZZ.png", quote: "敌不动我不动，敌一动我装死。只要我已读不回的时间够长，这活儿就会奇迹般地消失。", cond: s => s.摸鱼 === Math.max(...Object.values(s)) },
+  { code: "ATM1", name: "送钱者", color: "#FF5252", desc: "你上班不是为了赚钱，是为了把医保扣完。你每个月发的工资最后都通过打车费和药费还给了社会，你是职场慈善家。", tags: ["纯纯倒贴", "用命换钱", "感动中国"], img: "ATM1.png", quote: "打车50，外卖40，买药100……算下来今天来上班我还倒贴了60。没关系，全当是做慈善了。", cond: s => s.勤奋 === Math.max(...Object.values(s)) && s.内耗 < 10 },
+  { code: "Dior-s", name: "屌丝", color: "#8D6E63", desc: "虽然自称职场精英，但内心深处知道自己只是一抹顽强的尘埃。便宜、好用、随叫随到，是你最后的倔强。", tags: ["底层本色", "自嘲之王", "职场底片"], img: "Dior-s.png", quote: "虽然每天吃着十几块的快餐，但我操心的都是公司几百万的项目。我就是职场中最坚韧的边角料！", cond: s => s.勤奋 === Math.max(...Object.values(s)) },
+  { code: "OJB-K", name: "无所谓人", color: "#FF9800", desc: "你已经超脱了。老板骂你你点头，同事卷你你退休。你不是心态好，你是已经对这个世界彻底失望了。", tags: ["随波逐流", "无欲无求", "活着就行"], img: "OJB-K.png", quote: "扣绩效？OK。加班？OK。背锅？OK。随你们便吧，我这具躯壳已经看透了职场的红尘。", cond: s => (s.勤奋 + s.内耗 + s.务虚) <= 15 },
+  { code: "QUIT", name: "辞职狂热者", color: "#F44336", desc: "每天在心里辞职800次，写了500封辞职信从未点击发送。脚被房贷链条锁在桌腿上。", tags: ["口嗨专家", "精神离职", "准时下班"], img: "QUIT.png", quote: "辞职信已经写到第500个版本了。如果不是下个月的花呗和房贷，我发誓我现在就掀翻这张办公桌！", cond: s => true }
 ];
 
 let scores = {勤奋: 0, 摸鱼: 0, 社恐: 0, 务虚: 0, 内耗: 0};
@@ -184,8 +183,6 @@ function showResult() {
   document.getElementById('quiz-screen').classList.remove('active');
   document.getElementById('result-screen').classList.add('active');
   const type = types.find(t => t.cond(scores));
-  const maxScore = Math.max(...Object.values(scores)) || 1;
-  const dimColors = {勤奋: '#378ADD', 摸鱼: '#5DCAA5', 社恐: '#AFA9EC', 务虚: '#EF9F27', 内耗: '#F09595'};
 
   document.getElementById('r-header').innerHTML = `
     <div class="result-tag">你的打工人格类型</div>
@@ -203,13 +200,13 @@ function showResult() {
     </div>
   `;
 
-  document.getElementById('dims-list').innerHTML = Object.entries(scores).map(([k, v]) => `
-    <div class="dim-row">
-      <span class="dim-label">${k}</span>
-      <div class="dim-track"><div class="dim-fill" style="width:${Math.round(v/maxScore*100)}%;background:${dimColors[k]}"></div></div>
-      <span class="dim-val">${v}</span>
+  // 移除了进度条代码，替换为内心OS的渲染逻辑
+  document.getElementById('r-body').innerHTML = `
+    <div class="inner-voice-box">
+      <div class="inner-voice-title">你的职场内心 OS</div>
+      <div class="inner-voice-text">${type.quote}</div>
     </div>
-  `).join('');
+  `;
 }
 
 function restart() {
