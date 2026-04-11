@@ -1,103 +1,111 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WZTI 职场暗黑人格图鉴</title>
-<style>
-:root {
-  --color-background-primary: #ffffff;
-  --color-background-secondary: #f7f7f8;
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #666666;
-  --color-border-primary: #000000;
-  --color-border-secondary: #e5e5e5;
-  --color-border-tertiary: #f0f0f0;
-  --border-radius-md: 12px;
-  --border-radius-lg: 24px;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>WZTI 职场暗黑人格图鉴</title>
+    <style>
+        :root {
+            --color-background-primary: #ffffff;
+            --color-background-secondary: #f7f7f8;
+            --color-text-primary: #1a1a1a;
+            --color-text-secondary: #666666;
+            --color-border-primary: #000000;
+            --color-border-secondary: #e5e5e5;
+            --color-border-tertiary: #f0f0f0;
+            --border-radius-md: 12px;
+            --border-radius-lg: 24px;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-sans); background-color: #fafafa; color: var(--color-text-primary); }
-#app { max-width: 680px; margin: 0 auto; padding: 2rem 1rem; min-height: 100vh;}
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { font-family: var(--font-sans); background-color: #fafafa; color: var(--color-text-primary); line-height: 1.5; }
+        #app { max-width: 680px; margin: 0 auto; padding: 1.5rem 1rem; min-height: 100vh; display: flex; flex-direction: column; }
 
-.screen { display: none; animation: fadeIn 0.4s ease-out; }
-.screen.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .screen { display: none; animation: fadeIn 0.4s ease-out; width: 100%; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-.hero { text-align: center; padding: 4rem 1rem; background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 1px solid var(--color-border-tertiary); box-shadow: 0 4px 20px rgba(0,0,0,0.03);}
-.hero-badge { display: inline-block; background: var(--color-background-secondary); border: 1px solid var(--color-border-secondary); border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); padding: 6px 16px; margin-bottom: 1.5rem; letter-spacing: 0.5px;}
-.hero h1 { font-size: 32px; font-weight: 700; color: var(--color-text-primary); line-height: 1.4; margin-bottom: 1rem; }
-.hero p { font-size: 15px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 2.5rem; }
-.start-btn { background: var(--color-text-primary); color: var(--color-background-primary); border: none; border-radius: 999px; font-size: 16px; padding: 14px 40px; cursor: pointer; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s; }
-.start-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+        /* 首页样式 */
+        .hero { text-align: center; padding: 4rem 1.5rem; background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 1px solid var(--color-border-tertiary); box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-top: 2rem; }
+        .hero-badge { display: inline-block; background: var(--color-background-secondary); border: 1px solid var(--color-border-secondary); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--color-text-secondary); padding: 6px 16px; margin-bottom: 1.5rem; letter-spacing: 1px; }
+        .hero h1 { font-size: 32px; font-weight: 800; color: var(--color-text-primary); line-height: 1.3; margin-bottom: 1rem; }
+        .hero p { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 2.5rem; }
+        .start-btn { background: var(--color-text-primary); color: #fff; border: none; border-radius: 999px; font-size: 17px; padding: 16px 48px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .start-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
 
-.progress-bar { height: 4px; background: var(--color-border-tertiary); border-radius: 2px; margin: 1rem 0 2rem 0; overflow: hidden;}
-.progress-fill { height: 100%; background: var(--color-text-primary); border-radius: 2px; transition: width 0.4s ease; }
-.q-meta { display: flex; justify-content: space-between; font-size: 14px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 1rem; }
-.q-text { font-size: 20px; font-weight: 600; color: var(--color-text-primary); line-height: 1.5; margin-bottom: 0.5rem; }
-.q-hint { font-size: 14px; color: #888; margin-bottom: 2rem; }
-.opts { display: flex; flex-direction: column; gap: 12px; }
-.opt-btn { background: var(--color-background-primary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 16px 20px; text-align: left; cursor: pointer; font-size: 15px; font-weight: 500; color: var(--color-text-primary); transition: all 0.2s; line-height: 1.5;}
-.opt-btn:hover { background: var(--color-background-secondary); transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.04);}
+        /* 答题页样式 */
+        .progress-bar { height: 6px; background: var(--color-border-tertiary); border-radius: 3px; margin: 1rem 0 2rem 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--color-text-primary); transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .q-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--color-text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; }
+        .q-text { font-size: 22px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.5rem; }
+        .q-hint { font-size: 14px; color: #999; margin-bottom: 2rem; min-height: 20px; }
+        .opts { display: flex; flex-direction: column; gap: 12px; }
+        .opt-btn { background: #fff; border: 1.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 18px 20px; text-align: left; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; }
+        .opt-btn:active { background: var(--color-background-secondary); transform: scale(0.98); border-color: var(--color-text-primary); }
 
-.result-card { background: var(--color-background-primary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.04);}
-.result-header { padding: 3rem 2rem 2rem; text-align: center;}
-.result-tag { font-size: 14px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;}
-.result-code { font-size: 56px; font-weight: 800; letter-spacing: 2px; margin-bottom: 0.5rem; line-height: 1;}
-.result-name { font-size: 24px; font-weight: 700; margin-bottom: 1.5rem; }
-.result-desc { font-size: 15px; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: 1.5rem; text-align: justify;}
+        /* 结果页样式 */
+        .result-card { background: #fff; border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
+        .result-header { padding: 3rem 1.5rem 2rem; text-align: center; }
+        .result-tag { font-size: 12px; font-weight: 700; color: #999; margin-bottom: 0.8rem; letter-spacing: 2px; }
+        .result-code { font-size: 64px; font-weight: 900; letter-spacing: -1px; margin-bottom: 0.2rem; }
+        .result-name { font-size: 26px; font-weight: 800; margin-bottom: 1.5rem; }
+        .result-desc { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 1.5rem; padding: 0 1rem; line-height: 1.7; text-align: justify; }
+        
+        .tag-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
+        .tag { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 4px; background: #f0f0f0; }
 
-.poster-box { margin: 1.5rem 0; padding: 1.5rem; background: #f9f9fb; border-radius: var(--border-radius-md); border-left: 4px solid var(--color-text-primary); text-align: center;}
-.poster-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 6px;}
-.poster-img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .poster-box { margin: 1.5rem; padding: 1.5rem; background: #fdfdfd; border-radius: var(--border-radius-md); border: 1px dashed #ddd; text-align: center; }
+        .poster-title { font-size: 13px; font-weight: 700; margin-bottom: 1rem; color: #444; }
+        .poster-img { max-width: 100%; border-radius: 8px; background: #eee; min-height: 200px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; }
 
-/* 新增的内部OS样式 */
-.result-body { padding: 2rem; border-top: 1px solid var(--color-border-tertiary); background: var(--color-background-secondary);}
-.inner-voice-box { background: var(--color-background-primary); border: 1px dashed #ccc; border-radius: var(--border-radius-md); padding: 1.5rem 1.5rem 2rem; position: relative; text-align: center;}
-.inner-voice-title { font-size: 13px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;}
-.inner-voice-text { font-size: 16px; line-height: 1.6; color: var(--color-text-primary); font-weight: 500;}
-.inner-voice-text::before { content: '“'; font-size: 32px; color: #e0e0e0; font-family: serif; position: absolute; top: 2.5rem; left: 1rem;}
-.inner-voice-text::after { content: '”'; font-size: 32px; color: #e0e0e0; font-family: serif; position: absolute; bottom: 0.5rem; right: 1rem;}
+        .result-body { padding: 2rem 1.5rem; background: var(--color-background-secondary); border-top: 1px solid var(--color-border-tertiary); }
+        .inner-voice-box { background: #fff; border-radius: var(--border-radius-md); padding: 2rem 1.5rem; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .inner-voice-title { font-size: 12px; font-weight: 700; color: #bbb; text-align: center; margin-bottom: 1.2rem; letter-spacing: 3px; }
+        .inner-voice-text { font-size: 17px; font-weight: 600; color: #333; text-align: center; position: relative; z-index: 1; }
+        
+        .retry-btn { width: 100%; border: 2px solid var(--color-text-primary); border-radius: 999px; background: transparent; font-size: 16px; font-weight: 700; padding: 15px; cursor: pointer; transition: all 0.2s; margin-bottom: 1.5rem; }
+        .retry-btn:active { background: var(--color-text-primary); color: #fff; }
 
-.retry-btn { width: 100%; border: 1px solid var(--color-text-primary); border-radius: 999px; background: transparent; font-size: 16px; font-weight: 600; color: var(--color-text-primary); padding: 14px; cursor: pointer; transition: all 0.2s; }
-.retry-btn:hover { background: var(--color-text-primary); color: #fff; }
+        /* 底部免责声明样式 */
+        .disclaimer { text-align: center; font-size: 11px; color: #bbb; line-height: 1.6; padding: 0 20px 40px; letter-spacing: 0.5px; }
 
-.tag-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
-.tag { font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 6px; background: #f0f0f0; color: var(--color-text-primary); }
-</style>
+    </style>
 </head>
 <body>
 
 <div id="app">
-  <div class="screen active" id="home-screen">
-    <div class="hero">
-      <div class="hero-badge">WZTI · 职场阴暗面</div>
-      <h1>发现你的<br>打工人格</h1>
-      <p>抛弃职场虚伪滤镜<br>测测你在公司真实的“生存状态”</p>
-      <button class="start-btn" onclick="startTest()">开始测试 →</button>
+    <div class="screen active" id="home-screen">
+        <div class="hero">
+            <div class="hero-badge">WZTI · 职场阴暗面</div>
+            <h1>发现你的<br>打工人格</h1>
+            <p>抛弃职场虚伪滤镜<br>测测你在公司真实的“生存状态”</p>
+            <button class="start-btn" onclick="startTest()">开始测试 →</button>
+        </div>
     </div>
-  </div>
 
-  <div class="screen" id="quiz-screen">
-    <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
-    <div class="q-meta">
-      <span id="q-num">第 1 题</span>
-      <span id="q-total">共 20 题</span>
+    <div class="screen" id="quiz-screen">
+        <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+        <div class="q-meta">
+            <span id="q-num">第 1 题</span>
+            <span id="q-total">共 20 题</span>
+        </div>
+        <div class="q-text" id="q-text"></div>
+        <div class="q-hint" id="q-hint"></div>
+        <div class="opts" id="opts"></div>
     </div>
-    <div class="q-text" id="q-text"></div>
-    <div class="q-hint" id="q-hint"></div>
-    <div class="opts" id="opts"></div>
-  </div>
 
-  <div class="screen" id="result-screen">
-    <div class="result-card">
-      <div class="result-header" id="r-header"></div>
-      <div class="result-body" id="r-body"></div>
+    <div class="screen" id="result-screen">
+        <div class="result-card">
+            <div class="result-header" id="r-header"></div>
+            <div class="result-body" id="r-body"></div>
+        </div>
+        <button class="retry-btn" onclick="restart()">我不服，再测一次</button>
+        <div class="disclaimer">
+            本测试为趣味职场测评，仅供娱乐参考，<br>
+            非专业心理诊断，不涉及医疗及命运预测。
+        </div>
     </div>
-    <button class="retry-btn" onclick="restart()">我不服，再测一次</button>
-  </div>
 </div>
 
 <script>
@@ -124,94 +132,95 @@ const questions = [
   { text: "最后一题：看到这是最后一题，你的感受是？", hint: "（请诚实作答，这道题很关键）", opts: [{text: "如释重负，赶紧交卷看看自己到底是哪种奇葩，希望能准一点", scores: {勤奋: 0, 摸鱼: 2, 社恐: 0, 务虚: 0, 内耗: 1}}, {text: "内心毫无波澜，这种测试做过几百个了，也就是个打发上班时间的乐子", scores: {勤奋: 1, 摸鱼: 1, 社恐: 0, 务虚: 2, 内耗: 0}}, {text: "陷入沉思：我刚才第7题是不是选得太保守了？结果会不会不准确？要重做吗？", scores: {勤奋: 0, 摸鱼: 0, 社恐: 0, 务虚: 0, 内耗: 3}}, {text: "非常满意，因为做这20道题成功帮我消耗了大约8分钟的带薪工作时间", scores: {勤奋: 0, 摸鱼: 3, 社恐: 0, 务虚: 0, 内耗: 0}}] }
 ];
 
-// 新增了 quote 字段，用来输出每个打工人的内心独白
 const types = [
-  { code: "SHIT", name: "狗屎人", color: "#795548", desc: "干啥啥不行，坏事第一名。你走过的地方，代码会崩溃，饮水机会断水。你是职场中移动的“逻辑黑洞”。", tags: ["职场瘟神", "逻辑粉碎机", "搅屎棍"], img: "SHIT.png", quote: "我也不想这样啊，但我敲的每一行代码都有它自己的想法。只要我不尴尬，崩溃的就是甲方。", cond: s => s.摸鱼 >= 18 && s.内耗 >= 18 },
-  { code: "MALO", name: "吗喽", color: "#6D4C41", desc: "你就是一只听话的吗喽。给个香蕉就干活，不给香蕉就原地发疯。生活就是一场大型马戏团杂耍，你是那个最卖力的。", tags: ["吗喽文化", "听话好使", "眼神清澈的蠢"], img: "MALO.png", quote: "斯哈斯哈，老板给香蕉了，我敲敲敲敲敲！等下，香蕉怎么只有半根？不管了，先发个疯再说！", cond: s => s.勤奋 >= 18 && s.内耗 >= 18 },
-  { code: "ATM2", name: "ATM机", color: "#00BCD4", desc: "你不是在上班，你是在给老板的法拉利众筹。你的每一滴汗水都化作了老板在马尔代夫的每一粒沙子。", tags: ["人肉提款机", "老板逆子", "无私奉献"], img: "ATM2.png", quote: "我是一块砖，哪里需要哪里搬；我是一棵韭，老板割完还能长。老板的帕拉梅拉，有我一个轮胎的功劳！", cond: s => s.务虚 >= 15 && s.勤奋 >= 15 && s.内耗 < 10 },
-  { code: "DRUN-K", name: "酒鬼", color: "#7E57C2", desc: "不喝两口根本没法面对这些需求。你清醒的时候工作极差，喝醉了反而能写出完美的方案，因为这时候你也看不清甲方在说什么了。", tags: ["宿醉办公", "精神麻醉", "摇摇晃晃"], img: "DRUN-K).png", quote: "清醒的人在这个职场是活不下去的。这需求写得跟天书一样，不整两口我怎么跟甲方灵魂共振？", cond: s => s.摸鱼 >= 15 && s.务虚 >= 15 },
-  { code: "WOC!", name: "握草人", color: "#009688", desc: "你的一生都在震惊中度过。老板发消息：WOC！同事甩锅：WOC！这种公司居然还没倒闭：WOC！", tags: ["捧场王", "情绪极化", "只会这一句"], img: "WOC!.png", quote: "除了『握草』，我已经丧失了其他语言能力。这破公司每天都能给我整点新花样，绝了。", cond: s => s.内耗 >= 15 && s.社恐 >= 15 },
-  { code: "DEAD", name: "死者", color: "#000000", desc: "其实你三年前就心肌梗塞死在工位上了。现在的你只是由于长期吹空调产生的物理惯性在进行某种名为“打工”的反射。安息吧。", tags: ["魂归西天", "僵尸代码", "物理惯性"], img: "dead.png", quote: "如果工位能长出蘑菇，我头上大概已经是一片森林了。别吵，我在靠空调续命。", cond: s => s.内耗 === Math.max(...Object.values(s)) && s.内耗 >= 25 },
-  { code: "FUCK", name: "草者", color: "#4CAF50", desc: "头顶绿草，心中全是草泥马。只要我不努力，老板就永远别想割到我的韭菜。你的存在就是为了让公司的绩效看起来像个笑话。", tags: ["原地躺平", "植物人状态", "拒绝被卷"], img: "FUCK.png", quote: "只要我不发力，资本家就剥削不到我。今天也是成功把公司羊毛薅秃的一天，嘿嘿。", cond: s => s.摸鱼 === Math.max(...Object.values(s)) && s.摸鱼 >= 25 },
-  { code: "SOLO", name: "孤儿", color: "#212121", desc: "你没有同事，没有朋友。你所在的部门只有你一个人。你就像是公司里的一块瓷砖，存在感极低，但被踩得很疼。", tags: ["单机玩家", "全栈孤狼", "查无此人"], img: "SOLO.png", quote: "别跟我说话，别拉我进群，别叫我聚餐。代码和文档是我的结界，人类只会让我掉电。", cond: s => s.社恐 === Math.max(...Object.values(s)) && s.社恐 >= 20 },
-  { code: "FAKE", name: "伪人", color: "#FFEB3B", desc: "你是一台完美的模仿机器。模仿在干活，模仿在开会，模仿在思考。除了想下班的欲望是真的，其余一切都是假的。", tags: ["皮囊大师", "假装在线", "系统镜像"], img: "FAKE.png", quote: "『收到，好的，没问题』——已触发自动回复机制。面具戴久了，我都忘了自己本来到底想骂什么。", cond: s => s.务虚 === Math.max(...Object.values(s)) && s.务虚 >= 20 },
-  { code: "IMSB", name: "自我攻击者", color: "#607D8B", desc: "老板还没开口，你已经把自己骂得体无完肤。你不是在内耗，你是在体内举办自己的葬礼，顺便还给自己烧了纸。", tags: ["自卑巅峰", "道歉机器", "内心火葬场"], img: "IMSB.png", quote: "对不起，我又呼吸了公司的空气。刚刚老板皱眉肯定是因为我昨天左脚先踏进公司，都是我的错…", cond: s => s.内耗 === Math.max(...Object.values(s)) },
-  { code: "ZZZZ", name: "装死者", color: "#BDBDBD", desc: "只要我躺得够平，老板的鞭子就永远抽不到我。任何紧急任务，只要我装死够久，它就会自动顺延给那个叫SADG的倒霉蛋。", tags: ["由于太闲而忙碌", "假装断网", "生存大师"], img: "ZZZZ.png", quote: "敌不动我不动，敌一动我装死。只要我已读不回的时间够长，这活儿就会奇迹般地消失。", cond: s => s.摸鱼 === Math.max(...Object.values(s)) },
-  { code: "ATM1", name: "送钱者", color: "#FF5252", desc: "你上班不是为了赚钱，是为了把医保扣完。你每个月发的工资最后都通过打车费和药费还给了社会，你是职场慈善家。", tags: ["纯纯倒贴", "用命换钱", "感动中国"], img: "ATM1.png", quote: "打车50，外卖40，买药100……算下来今天来上班我还倒贴了60。没关系，全当是做慈善了。", cond: s => s.勤奋 === Math.max(...Object.values(s)) && s.内耗 < 10 },
-  { code: "Dior-s", name: "屌丝", color: "#8D6E63", desc: "虽然自称职场精英，但内心深处知道自己只是一抹顽强的尘埃。便宜、好用、随叫随到，是你最后的倔强。", tags: ["底层本色", "自嘲之王", "职场底片"], img: "Dior-s.png", quote: "虽然每天吃着十几块的快餐，但我操心的都是公司几百万的项目。我就是职场中最坚韧的边角料！", cond: s => s.勤奋 === Math.max(...Object.values(s)) },
-  { code: "OJB-K", name: "无所谓人", color: "#FF9800", desc: "你已经超脱了。老板骂你你点头，同事卷你你退休。你不是心态好，你是已经对这个世界彻底失望了。", tags: ["随波逐流", "无欲无求", "活着就行"], img: "OJB-K.png", quote: "扣绩效？OK。加班？OK。背锅？OK。随你们便吧，我这具躯壳已经看透了职场的红尘。", cond: s => (s.勤奋 + s.内耗 + s.务虚) <= 15 },
-  { code: "QUIT", name: "辞职狂热者", color: "#F44336", desc: "每天在心里辞职800次，写了500封辞职信从未点击发送。脚被房贷链条锁在桌腿上。", tags: ["口嗨专家", "精神离职", "准时下班"], img: "QUIT.png", quote: "辞职信已经写到第500个版本了。如果不是下个月的花呗和房贷，我发誓我现在就掀翻这张办公桌！", cond: s => true }
+  { code: "SHIT", name: "狗屎人", color: "#795548", desc: "干啥啥不行，坏事第一名。你走过的地方，代码会崩溃，饮水机会断水。你是职场中移动的“逻辑黑洞”。", tags: ["职场瘟神", "逻辑粉碎机", "搅屎棍"], quote: "我也不想这样啊，但我敲的每一行代码都有它自己的想法。只要我不尴尬，崩溃的就是甲方。", cond: s => s.摸鱼 >= 18 && s.内耗 >= 18 },
+  { code: "MALO", name: "吗喽", color: "#6D4C41", desc: "你就是一只听话的吗喽。给个香蕉就干活，不给香蕉就原地发疯。生活就是一场大型马戏团杂耍，你是那个最卖力的。", tags: ["吗喽文化", "听话好使", "眼神清澈的蠢"], quote: "斯哈斯哈，老板给香蕉了，我敲敲敲敲敲！等下，香蕉怎么只有半根？不管了，先发个疯再说！", cond: s => s.勤奋 >= 18 && s.内耗 >= 18 },
+  { code: "ATM2", name: "ATM机", color: "#00BCD4", desc: "你不是在上班，你是在给老板的法拉利众筹。你的每一滴汗水都化作了老板在马尔代夫的每一粒沙子。", tags: ["人肉提款机", "老板逆子", "无私奉献"], quote: "我是一块砖，哪里需要哪里搬；我是一棵韭，老板割完还能长。老板的帕拉梅拉，有我一个轮胎功劳！", cond: s => s.务虚 >= 15 && s.勤奋 >= 15 && s.内耗 < 10 },
+  { code: "DRUN-K", name: "酒鬼", color: "#7E57C2", desc: "不喝两口根本没法面对这些需求。你清醒的时候工作极差，喝醉了反而能写出完美的方案，因为这时候你也看不清甲方在说什么了。", tags: ["宿醉办公", "精神麻醉", "摇摇晃晃"], quote: "清醒的人在这个职场是活不下去的。这需求写得跟天书一样，不整两口我怎么跟甲方灵魂共振？", cond: s => s.摸鱼 >= 15 && s.务虚 >= 15 },
+  { code: "WOC!", name: "握草人", color: "#009688", desc: "你的一生都在震惊中度过。老板发消息：WOC！同事甩锅：WOC！这种公司居然还没倒闭：WOC！", tags: ["捧场王", "情绪极化", "只会这一句"], quote: "除了『握草』，我已经丧失了其他语言能力。这破公司每天都能给我整点新花样，绝了。", cond: s => s.内耗 >= 15 && s.社恐 >= 15 },
+  { code: "DEAD", name: "死者", color: "#000000", desc: "其实你三年前就心肌梗塞死在工位上了。现在的你只是由于长期吹空调产生的物理惯性在进行某种名为“打工”的反射。安息吧。", tags: ["魂归西天", "僵尸代码", "物理惯性"], quote: "如果工位能长出蘑菇，我头上大概已经是一片森林了。别吵，我在靠空调续命。", cond: s => s.内耗 === Math.max(...Object.values(s)) && s.内耗 >= 25 },
+  { code: "FUCK", name: "草者", color: "#4CAF50", desc: "头顶绿草，心中全是草泥马。只要我不努力，老板就永远别想割到我的韭菜。你的存在就是为了让公司的绩效看起来像个笑话。", tags: ["原地躺平", "植物人状态", "拒绝被卷"], quote: "只要我不发力，资本家就剥削不到我。今天也是成功把公司羊毛薅秃的一天，嘿嘿。", cond: s => s.摸鱼 === Math.max(...Object.values(s)) && s.摸鱼 >= 25 },
+  { code: "SOLO", name: "孤儿", color: "#212121", desc: "你没有同事，没有朋友。你所在的部门只有你一个人。你就像是公司里的一块瓷砖，存在感极低，但被踩得很疼。", tags: ["单机玩家", "全栈孤狼", "查无此人"], quote: "别跟我说话，别拉我进群，别叫我聚餐。代码和文档是我的结界，人类只会让我掉电。", cond: s => s.社恐 === Math.max(...Object.values(s)) && s.社恐 >= 20 },
+  { code: "FAKE", name: "伪人", color: "#D4AF37", desc: "你是一台完美的模仿机器。模仿在干活，模仿在开会，模仿在思考。除了想下班的欲望是真的，其余一切都是假的。", tags: ["皮囊大师", "假装在线", "系统镜像"], quote: "『收到，好的，没问题』——已触发自动回复机制。面具戴久了，我都忘了自己本来到底想骂什么。", cond: s => s.务虚 === Math.max(...Object.values(s)) && s.务虚 >= 20 },
+  { code: "IMSB", name: "自我攻击者", color: "#607D8B", desc: "老板还没开口，你已经把自己骂得体无完肤。你不是在内耗，你是在体内举办自己的葬礼，顺便还给自己烧了纸。", tags: ["自卑巅峰", "道歉机器", "内心火葬场"], quote: "对不起，我又呼吸了公司的空气。刚刚老板皱眉肯定是因为我昨天左脚先踏进公司，都是我的错…", cond: s => s.内耗 === Math.max(...Object.values(s)) },
+  { code: "ZZZZ", name: "装死者", color: "#BDBDBD", desc: "只要我躺得够平，老板的鞭子就永远抽不到我。任何紧急任务，只要我装死够久，它就会自动顺延给那个叫SADG的倒霉蛋。", tags: ["由于太闲而忙碌", "假装断网", "生存大师"], quote: "敌不动我不动，敌一动我装死。只要我已已读不回的时间够长，这活儿就会奇迹般地消失。", cond: s => s.摸鱼 === Math.max(...Object.values(s)) },
+  { code: "ATM1", name: "送钱者", color: "#FF5252", desc: "你上班不是为了赚钱，是为了把医保扣完。你每个月发的工资最后都通过打车费和药费还给了社会，你是职场慈善家。", tags: ["纯纯倒贴", "用命换钱", "感动中国"], quote: "打车50，外卖40，买药100……算下来今天来上班我还倒贴了60。没关系，全当是做慈善了。", cond: s => s.勤奋 === Math.max(...Object.values(s)) && s.内耗 < 10 },
+  { code: "OJB-K", name: "无所谓人", color: "#FF9800", desc: "你已经超脱了。老板骂你你点头，同事卷你你退休。你不是心态好，你是已经对这个世界彻底失望了。", tags: ["随波逐流", "无欲无求", "活着就行"], quote: "扣绩效？OK。加班？OK。背锅？OK。随你们便吧，我这具躯壳已经看透了职场的红尘。", cond: s => (s.勤奋 + s.内耗 + s.务虚) <= 15 },
+  { code: "QUIT", name: "辞职狂热者", color: "#F44336", desc: "每天在心里辞职800次，写了500封辞职信从未点击发送。脚被房贷链条锁在桌腿上。", tags: ["口嗨专家", "精神离职", "准时下班"], quote: "辞职信已经写到第500个版本了。如果不是下个月的花呗和房贷，我发誓我现在就掀翻这张办公桌！", cond: s => true }
 ];
 
 let scores = {勤奋: 0, 摸鱼: 0, 社恐: 0, 务虚: 0, 内耗: 0};
 let current = 0;
 
 function startTest() {
-  scores = {勤奋: 0, 摸鱼: 0, 社恐: 0, 务虚: 0, 内耗: 0};
-  current = 0;
-  showQ();
-  document.getElementById('home-screen').classList.remove('active');
-  document.getElementById('quiz-screen').classList.add('active');
+    scores = {勤奋: 0, 摸鱼: 0, 社恐: 0, 务虚: 0, 内耗: 0};
+    current = 0;
+    showQ();
+    document.getElementById('home-screen').classList.remove('active');
+    document.getElementById('quiz-screen').classList.add('active');
+    window.scrollTo(0, 0);
 }
 
 function showQ() {
-  const q = questions[current];
-  document.getElementById('q-num').textContent = `第 ${current + 1} 题`;
-  document.getElementById('q-total').textContent = `共 ${questions.length} 题`;
-  document.getElementById('prog').style.width = `${(current / questions.length) * 100}%`;
-  document.getElementById('q-text').textContent = q.text;
-  document.getElementById('q-hint').textContent = q.hint || '';
-  const opts = document.getElementById('opts');
-  opts.innerHTML = '';
-  q.opts.forEach((o, i) => {
-    const b = document.createElement('button');
-    b.className = 'opt-btn';
-    b.textContent = o.text;
-    b.onclick = () => pick(i);
-    opts.appendChild(b);
-  });
+    const q = questions[current];
+    document.getElementById('q-num').textContent = `第 ${current + 1} 题`;
+    document.getElementById('q-total').textContent = `共 ${questions.length} 题`;
+    document.getElementById('prog').style.width = `${(current / questions.length) * 100}%`;
+    document.getElementById('q-text').textContent = q.text;
+    document.getElementById('q-hint').textContent = q.hint || '';
+    const opts = document.getElementById('opts');
+    opts.innerHTML = '';
+    q.opts.forEach((o, i) => {
+        const b = document.createElement('button');
+        b.className = 'opt-btn';
+        b.textContent = o.text;
+        b.onclick = () => pick(i);
+        opts.appendChild(b);
+    });
+    window.scrollTo(0, 0);
 }
 
 function pick(i) {
-  const s = questions[current].opts[i].scores;
-  Object.keys(s).forEach(k => scores[k] += s[k]);
-  current++;
-  if (current >= questions.length) showResult(); else showQ();
+    const s = questions[current].opts[i].scores;
+    Object.keys(s).forEach(k => scores[k] += s[k]);
+    current++;
+    if (current >= questions.length) {
+        showResult();
+    } else {
+        showQ();
+    }
 }
 
 function showResult() {
-  document.getElementById('quiz-screen').classList.remove('active');
-  document.getElementById('result-screen').classList.add('active');
-  const type = types.find(t => t.cond(scores));
+    document.getElementById('quiz-screen').classList.remove('active');
+    document.getElementById('result-screen').classList.add('active');
+    const type = types.find(t => t.cond(scores)) || types[types.length - 1];
 
-  document.getElementById('r-header').innerHTML = `
-    <div class="result-tag">你的打工人格类型</div>
-    <div class="result-code" style="color:${type.color}">${type.code}</div>
-    <div class="result-name">${type.name}</div>
-    <div class="result-desc">${type.desc}</div>
-    <div class="tag-row">${type.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-    
-    <div class="poster-box" style="border-left-color: ${type.color}">
-      <div class="poster-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-        你的职场灵魂画像
-      </div>
-      <img src="${type.img}" alt="${type.name}" class="poster-img">
-    </div>
-  `;
+    document.getElementById('r-header').innerHTML = `
+        <div class="result-tag">你的打工人格类型</div>
+        <div class="result-code" style="color:${type.color}">${type.code}</div>
+        <div class="result-name">${type.name}</div>
+        <p class="result-desc">${type.desc}</p>
+        <div class="tag-row">${type.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <div class="poster-box">
+            <div class="poster-title">你的职场灵魂画像</div>
+            <div class="poster-img">【此处应显示画像图片：${type.code}.png】<br>建议长按保存此图分享</div>
+        </div>
+    `;
 
-  // 移除了进度条代码，替换为内心OS的渲染逻辑
-  document.getElementById('r-body').innerHTML = `
-    <div class="inner-voice-box">
-      <div class="inner-voice-title">你的职场内心 OS</div>
-      <div class="inner-voice-text">${type.quote}</div>
-    </div>
-  `;
+    document.getElementById('r-body').innerHTML = `
+        <div class="inner-voice-box">
+            <div class="inner-voice-title">你的职场内心 OS</div>
+            <div class="inner-voice-text">“${type.quote}”</div>
+        </div>
+    `;
+    window.scrollTo(0, 0);
 }
 
 function restart() {
-  document.getElementById('result-screen').classList.remove('active');
-  document.getElementById('home-screen').classList.add('active');
+    document.getElementById('result-screen').classList.remove('active');
+    document.getElementById('home-screen').classList.add('active');
+    window.scrollTo(0, 0);
 }
 </script>
 </body>
