@@ -10,7 +10,6 @@
             --color-background-secondary: #f7f7f8;
             --color-text-primary: #1a1a1a;
             --color-text-secondary: #666666;
-            --color-border-primary: #000000;
             --color-border-secondary: #e5e5e5;
             --color-border-tertiary: #f0f0f0;
             --border-radius-md: 12px;
@@ -26,50 +25,41 @@
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 首页样式 */
+        /* 首页 */
         .hero { text-align: center; padding: 4rem 1.5rem; background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 1px solid var(--color-border-tertiary); box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-top: 2rem; }
-        .hero-badge { display: inline-block; background: var(--color-background-secondary); border: 1px solid var(--color-border-secondary); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--color-text-secondary); padding: 6px 16px; margin-bottom: 1.5rem; letter-spacing: 1px; }
-        .hero h1 { font-size: 32px; font-weight: 800; color: var(--color-text-primary); line-height: 1.3; margin-bottom: 1rem; }
-        .hero p { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 2.5rem; }
+        .hero-badge { display: inline-block; background: var(--color-background-secondary); border: 1px solid var(--color-border-secondary); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--color-text-secondary); padding: 6px 16px; margin-bottom: 1.5rem; }
+        .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.3; margin-bottom: 1rem; }
         .start-btn { background: var(--color-text-primary); color: #fff; border: none; border-radius: 999px; font-size: 17px; padding: 16px 48px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
-        .start-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
 
-        /* 答题页样式 */
+        /* 答题页 */
         .progress-bar { height: 6px; background: var(--color-border-tertiary); border-radius: 3px; margin: 1rem 0 2rem 0; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--color-text-primary); transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .q-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--color-text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; }
-        .q-text { font-size: 22px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.5rem; }
+        .progress-fill { height: 100%; background: var(--color-text-primary); transition: width 0.4s ease; }
+        .q-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--color-text-secondary); margin-bottom: 0.5rem; }
+        .q-text { font-size: 22px; font-weight: 700; margin-bottom: 0.5rem; }
         .q-hint { font-size: 14px; color: #999; margin-bottom: 2rem; min-height: 20px; }
         .opts { display: flex; flex-direction: column; gap: 12px; }
-        .opt-btn { background: #fff; border: 1.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 18px 20px; text-align: left; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; }
-        .opt-btn:active { background: var(--color-background-secondary); transform: scale(0.98); border-color: var(--color-text-primary); }
+        .opt-btn { background: #fff; border: 1.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 18px 20px; text-align: left; cursor: pointer; font-size: 16px; font-weight: 500; }
 
-        /* 结果页样式 */
+        /* 结果页 */
         .result-card { background: #fff; border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
         .result-header { padding: 3rem 1.5rem 2rem; text-align: center; }
-        .result-tag { font-size: 12px; font-weight: 700; color: #999; margin-bottom: 0.8rem; letter-spacing: 2px; }
         .result-code { font-size: 64px; font-weight: 900; letter-spacing: -1px; margin-bottom: 0.2rem; }
         .result-name { font-size: 26px; font-weight: 800; margin-bottom: 1.5rem; }
-        .result-desc { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 1.5rem; padding: 0 1rem; line-height: 1.7; text-align: justify; }
-        
+        .result-desc { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 1.5rem; padding: 0 1rem; text-align: justify; }
         .tag-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
         .tag { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 4px; background: #f0f0f0; }
 
         .poster-box { margin: 1.5rem; padding: 1.5rem; background: #fdfdfd; border-radius: var(--border-radius-md); border: 1px dashed #ddd; text-align: center; }
-        .poster-title { font-size: 13px; font-weight: 700; margin-bottom: 1rem; color: #444; }
-        .poster-img { max-width: 100%; border-radius: 8px; background: #eee; min-height: 200px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; }
+        .poster-img { max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 10px; }
 
         .result-body { padding: 2rem 1.5rem; background: var(--color-background-secondary); border-top: 1px solid var(--color-border-tertiary); }
-        .inner-voice-box { background: #fff; border-radius: var(--border-radius-md); padding: 2rem 1.5rem; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .inner-voice-title { font-size: 12px; font-weight: 700; color: #bbb; text-align: center; margin-bottom: 1.2rem; letter-spacing: 3px; }
-        .inner-voice-text { font-size: 17px; font-weight: 600; color: #333; text-align: center; position: relative; z-index: 1; }
+        .inner-voice-box { background: #fff; border-radius: var(--border-radius-md); padding: 2rem 1.5rem; position: relative; }
+        .inner-voice-text { font-size: 17px; font-weight: 600; color: #333; text-align: center; }
         
-        .retry-btn { width: 100%; border: 2px solid var(--color-text-primary); border-radius: 999px; background: transparent; font-size: 16px; font-weight: 700; padding: 15px; cursor: pointer; transition: all 0.2s; margin-bottom: 1.5rem; }
-        .retry-btn:active { background: var(--color-text-primary); color: #fff; }
-
-        /* 底部免责声明样式 */
-        .disclaimer { text-align: center; font-size: 11px; color: #bbb; line-height: 1.6; padding: 0 20px 40px; letter-spacing: 0.5px; }
-
+        .retry-btn { width: 100%; border: 2px solid var(--color-text-primary); border-radius: 999px; background: transparent; font-size: 16px; font-weight: 700; padding: 15px; cursor: pointer; margin-bottom: 1.5rem; }
+        
+        /* 底部免责声明 */
+        .disclaimer { text-align: center; font-size: 11px; color: #bbb; line-height: 1.6; padding: 0 20px 40px; }
     </style>
 </head>
 <body>
@@ -86,10 +76,7 @@
 
     <div class="screen" id="quiz-screen">
         <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
-        <div class="q-meta">
-            <span id="q-num">第 1 题</span>
-            <span id="q-total">共 20 题</span>
-        </div>
+        <div class="q-meta"><span id="q-num">第 1 题</span><span id="q-total">共 20 题</span></div>
         <div class="q-text" id="q-text"></div>
         <div class="q-hint" id="q-hint"></div>
         <div class="opts" id="opts"></div>
@@ -184,17 +171,18 @@ function pick(i) {
     const s = questions[current].opts[i].scores;
     Object.keys(s).forEach(k => scores[k] += s[k]);
     current++;
-    if (current >= questions.length) {
-        showResult();
-    } else {
-        showQ();
-    }
+    if (current >= questions.length) showResult(); else showQ();
 }
 
 function showResult() {
     document.getElementById('quiz-screen').classList.remove('active');
     document.getElementById('result-screen').classList.add('active');
     const type = types.find(t => t.cond(scores)) || types[types.length - 1];
+
+    // 映射 GitHub 文件名逻辑
+    let imgFile = type.code + ".png";
+    if (type.code === 'DRUN-K') imgFile = 'DRUN-K).png';
+    if (type.code === 'DEAD') imgFile = 'dead.png';
 
     document.getElementById('r-header').innerHTML = `
         <div class="result-tag">你的打工人格类型</div>
@@ -204,7 +192,8 @@ function showResult() {
         <div class="tag-row">${type.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
         <div class="poster-box">
             <div class="poster-title">你的职场灵魂画像</div>
-            <div class="poster-img">【此处应显示画像图片：${type.code}.png】<br>建议长按保存此图分享</div>
+            <img src="${imgFile}" alt="${type.name}" class="poster-img">
+            <p style="font-size: 11px; color: #999; margin-top: 5px;">长按保存图片，分享你的职场本色</p>
         </div>
     `;
 
