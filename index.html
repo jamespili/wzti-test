@@ -31,30 +31,31 @@
         .start-btn { background: var(--color-text-primary); color: #fff; border: none; border-radius: 999px; font-size: 17px; padding: 16px 48px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
 
         .progress-bar { height: 6px; background: var(--color-border-tertiary); border-radius: 3px; margin: 1rem 0 2rem 0; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--color-text-primary); transition: width 0.4s ease; }
+        .progress-fill { height: 100%; background: var(--color-text-primary); transition: width 0.3s ease; }
         .q-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--color-text-secondary); margin-bottom: 0.5rem; }
-        .q-text { font-size: 20px; font-weight: 700; margin-bottom: 0.5rem; }
-        .q-hint { font-size: 14px; color: #999; margin-bottom: 2rem; min-height: 20px; }
-        .opts { display: flex; flex-direction: column; gap: 12px; }
-        .opt-btn { background: #fff; border: 1.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 18px 20px; text-align: left; cursor: pointer; font-size: 16px; font-weight: 500; transition: background 0.2s; }
+        .q-text { font-size: 20px; font-weight: 700; margin-bottom: 0.5rem; color: #000; }
+        .q-hint { font-size: 14px; color: #999; margin-bottom: 1.5rem; min-height: 20px; }
+        .opts { display: flex; flex-direction: column; gap: 10px; }
+        .opt-btn { background: #fff; border: 1.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 16px 20px; text-align: left; cursor: pointer; font-size: 15px; font-weight: 500; transition: 0.2s; }
         .opt-btn:active { background: #f0f0f0; }
 
         .result-card { background: #fff; border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.06); }
         .result-header { padding: 3rem 1.5rem 2rem; text-align: center; }
-        .result-code { font-size: 56px; font-weight: 900; letter-spacing: -1px; margin-bottom: 0.2rem; }
-        .result-name { font-size: 26px; font-weight: 800; margin-bottom: 1rem; }
-        .result-desc { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 1.5rem; padding: 0 1rem; text-align: center; }
+        .result-code { font-size: 64px; font-weight: 900; letter-spacing: -1px; margin-bottom: 0.2rem; }
+        .result-name { font-size: 26px; font-weight: 800; margin-bottom: 1.5rem; }
+        .result-desc { font-size: 15px; color: var(--color-text-secondary); margin-bottom: 1.5rem; padding: 0 1rem; text-align: justify; }
         .tag-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
-        .tag { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 4px; background: #f0f0f0; color: #444; }
+        .tag { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 4px; background: #f0f0f0; }
 
         .poster-box { margin: 1.5rem; padding: 1.5rem; background: #fdfdfd; border-radius: var(--border-radius-md); border: 1px dashed #ddd; text-align: center; }
         .poster-img { max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 10px; }
 
         .result-body { padding: 2rem 1.5rem; background: var(--color-background-secondary); border-top: 1px solid var(--color-border-tertiary); }
-        .inner-voice-box { background: #fff; border-radius: var(--border-radius-md); padding: 2rem 1.5rem; }
-        .inner-voice-text { font-size: 17px; font-weight: 600; color: #333; text-align: center; font-style: italic; }
+        .inner-voice-box { background: #fff; border-radius: var(--border-radius-md); padding: 2rem 1.5rem; position: relative; }
+        .inner-voice-text { font-size: 17px; font-weight: 600; color: #333; text-align: center; }
         
         .retry-btn { width: 100%; border: 2px solid var(--color-text-primary); border-radius: 999px; background: transparent; font-size: 16px; font-weight: 700; padding: 15px; cursor: pointer; margin-bottom: 1.5rem; }
+        
         .disclaimer { text-align: center; font-size: 11px; color: #bbb; line-height: 1.6; padding: 0 20px 40px; }
     </style>
 </head>
@@ -63,16 +64,16 @@
 <div id="app">
     <div class="screen active" id="home-screen">
         <div class="hero">
-            <div class="hero-badge">WZTI 官方版</div>
-            <h1>发现你的<br>职场暗黑人格</h1>
-            <p>基于 2026 职场真实图鉴<br>剥离职场虚伪，直击生存本质</p>
+            <div class="hero-badge">WZTI · 职场阴暗面</div>
+            <h1>发现你的<br>打工人格</h1>
+            <p>抛弃职场虚伪滤镜<br>测测你在公司真实的“生存状态”</p>
             <button class="start-btn" onclick="startTest()">开始测试 →</button>
         </div>
     </div>
 
     <div class="screen" id="quiz-screen">
         <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
-        <div class="q-meta"><span id="q-num">第 1 题</span><span id="q-total">共 20 题</span></div>
+        <div class="q-meta"><span id="q-num">第 1 题</span><span id="q-total">共 30 题</span></div>
         <div class="q-text" id="q-text"></div>
         <div class="q-hint" id="q-hint"></div>
         <div class="opts" id="opts"></div>
@@ -80,56 +81,75 @@
 
     <div class="screen" id="result-screen">
         <div class="result-card">
-            <div id="r-header" class="result-header"></div>
-            <div id="r-body" class="result-body"></div>
+            <div class="result-header" id="r-header"></div>
+            <div class="result-body" id="r-body"></div>
         </div>
         <button class="retry-btn" onclick="restart()">我不服，再测一次</button>
-        <div class="disclaimer">趣味测试，请勿对号入座，生活已经够难了，乐呵一下就行。</div>
+        <div class="disclaimer">
+            本测试为趣味职场测评，仅供娱乐参考，<br>
+            非专业心理诊断，不涉及医疗及命运预测。
+        </div>
     </div>
 </div>
 
 <script>
-// 优化分值分配，引入负分，拉开维度差距
 const questions = [
-  { text: "每天早上，你是怎么起床的？", opts: [{text: "弹射起步构思待办事项", scores: {勤奋: 10, 摸鱼: -5}}, {text: "连环闹钟死亡边缘爬起", scores: {内耗: 5, 摸鱼: 5}}, {text: "彻夜难眠被工作恐惧支配", scores: {内耗: 10, 务虚: 2}}, {text: "灵魂拷问打卡系统逻辑", scores: {摸鱼: 10, 务虚: 3}}] },
-  { text: "老板突然走过来，你的第一反应？", opts: [{text: "Alt+Tab光速切换文档", scores: {摸鱼: 10, 社恐: 5}}, {text: "心跳飙升，疯狂自我反思", scores: {内耗: 10, 社恐: 5}}, {text: "主动迎上去汇报工作", scores: {勤奋: 10, 务虚: 5}}, {text: "假装正在进行深度思考", scores: {务虚: 10, 摸鱼: 2}}] },
-  { text: "公司团建，你的心理活动？", opts: [{text: "破冰交流展示社交魅力", scores: {务虚: 10, 勤奋: 2}}, {text: "占用周末吗？能折现吗？", scores: {摸鱼: 10, 内耗: 2}}, {text: "搜集病历试图请假", scores: {社恐: 10, 摸鱼: 5}}, {text: "角落干饭，准点消失", scores: {社恐: 10, 内耗: 5}}] },
-  { text: "开会的时候，你通常在做什么？", opts: [{text: "认真记录每一句废话", scores: {勤奋: 10, 内耗: 2}}, {text: "笔记本上画完一个动物园", scores: {摸鱼: 5, 务虚: 5}}, {text: "计算今晚吃火锅还是烤肉", scores: {摸鱼: 10, 勤奋: -5}}, {text: "反复鞭尸刚才发言的口误", scores: {内耗: 10, 社恐: 5}}] },
-  { text: "同事问能帮个忙吗，你的回答？", opts: [{text: "没问题，交给我吧！", scores: {勤奋: 10, 务虚: 2}}, {text: "微笑答应，心里骂娘", scores: {内耗: 10, 社恐: 2}}, {text: "评估风险后再做决定", scores: {务虚: 8, 摸鱼: 5}}, {text: "戴上耳机进入隐身状态", scores: {社恐: 10, 摸鱼: 5}}] },
-  { text: "收到不合理需求，你会？", opts: [{text: "默默扛下所有，加班做完", scores: {勤奋: 8, 内耗: 8}}, {text: "洋洋洒洒写邮件驳回", scores: {务虚: 10, 勤奋: 5}}, {text: "拖字诀，随手扔到底层", scores: {摸鱼: 10, 社恐: 2}}, {text: "一边敲键盘一边念离职经", scores: {内耗: 10, 摸鱼: 5}}] },
-  { text: "公司群@所有人，你的第一反应？", opts: [{text: "秒回收到老板辛苦了", scores: {务虚: 10, 勤奋: 5}}, {text: "选择性失明，无视通知", scores: {摸鱼: 10, 勤奋: -5}}, {text: "心惊肉跳，生怕背锅", scores: {内耗: 10, 社恐: 5}}, {text: "默默跟队形复制粘贴", scores: {社恐: 10, 务虚: 2}}] },
-  { text: "你的电脑桌面是？", opts: [{text: "极度整洁，严谨分类", scores: {勤奋: 10, 务虚: 2}}, {text: "混沌中有奇妙的秩序", scores: {务虚: 10, 摸鱼: 5}}, {text: "密密麻麻，看着就窒息", scores: {内耗: 10, 勤奋: 5}}, {text: "极简壁纸，随时跑路", scores: {摸鱼: 10, 社恐: 2}}] },
-  { text: "快下班了来紧急任务？", opts: [{text: "重开电脑，责任心爆表", scores: {勤奋: 10, 摸鱼: -10}}, {text: "试探性问能不能明天给", scores: {务虚: 5, 摸鱼: 5}}, {text: "默默坐回工位，内心火葬场", scores: {内耗: 10, 勤奋: 5}}, {text: "下班瞎，装作刚看到", scores: {摸鱼: 10, 社恐: 2}}] },
-  { text: "年会抽奖的心态？", opts: [{text: "积极互动，我就是锦鲤", scores: {务虚: 10, 勤奋: 2}}, {text: "毫无波澜，绝缘体质", scores: {内耗: 5, 摸鱼: 5}}, {text: "祈祷别中，害怕上台", scores: {社恐: 10, 内耗: 2}}, {text: "算奖品挂闲鱼卖多少钱", scores: {摸鱼: 10, 务虚: 5}}] },
-  { text: "对工作的真实期望？", opts: [{text: "不要饼，钱多事少离家近", scores: {摸鱼: 10, 勤奋: -5}}, {text: "实现双赢，挑战自我", scores: {勤奋: 10, 务虚: 5}}, {text: "环境简单，让我安静干活", scores: {社恐: 10, 勤奋: 5}}, {text: "这公司明年能撑过去吗？", scores: {务虚: 10, 内耗: 5}}] },
-  { text: "下班后，你通常会？", opts: [{text: "刷网课充电提升自我", scores: {勤奋: 10, 务虚: 5}}, {text: "像尸体一样瘫在沙发上", scores: {摸鱼: 10, 内耗: 5}}, {text: "报复性熬夜，刷到三点", scores: {摸鱼: 10, 勤奋: -5}}, {text: "焦虑复盘白天每一个细节", scores: {内耗: 10, 社恐: 2}}] },
-  { text: "领导说去他办公室一趟？", opts: [{text: "肯定有重任交给我", scores: {务虚: 10, 勤奋: 5}}, {text: "大脑检索我到底做错啥了", scores: {内耗: 10, 社恐: 5}}, {text: "等个十分钟再去，别太卑微", scores: {摸鱼: 10, 务虚: 2}}, {text: "推演三种灾难对话场景", scores: {内耗: 10, 务虚: 5}}] },
-  { text: "周五下午5:58的状态？", opts: [{text: "手扶打卡机，蓄势待发", scores: {摸鱼: 10, 勤奋: -10}}, {text: "聚精会神，活不完不下班", scores: {勤奋: 10, 务虚: 2}}, {text: "内心焦虑，这两分钟太漫长", scores: {内耗: 10}}, {text: "思考今晚聚餐点几串羊肉", scores: {摸鱼: 5, 务虚: 5}}] },
-  { text: "如何看待职场PUA？", opts: [{text: "习惯了打压，心态已崩", scores: {内耗: 10, 社恐: 5}}, {text: "免疫。不把公司当家就行", scores: {摸鱼: 10, 务虚: 5}}, {text: "为了钱，咬牙忍了", scores: {内耗: 5, 勤奋: 5}}, {text: "收集证据准备反向拿捏", scores: {务虚: 10, 勤奋: 5}}] },
-  { text: "最常用的表情包？", opts: [{text: "冷淡纯文字或[微笑]", scores: {务虚: 10, 社恐: 5}}, {text: "“好的好的”“老板辛苦了”", scores: {内耗: 10, 务虚: 5}}, {text: "[狗头]、[抱拳]圆滑表情", scores: {摸鱼: 10, 务虚: 2}}, {text: "私聊里全是发疯表情", scores: {内耗: 10, 摸鱼: 5}}] },
-  { text: "工位上有什么？", opts: [{text: "只有电脑，像精密零件", scores: {勤奋: 10, 社恐: 5}}, {text: "堆积如山的文件咖啡杯", scores: {内耗: 10, 勤奋: 2}}, {text: "各种解压盲盒手办", scores: {务虚: 10, 摸鱼: 5}}, {text: "空空如也，随时提桶", scores: {摸鱼: 10, 社恐: 5}}] },
-  { text: "努力工作的意义是？", opts: [{text: "获得成就感，写进简历", scores: {勤奋: 10, 务虚: 5}}, {text: "出卖体力的货币交换", scores: {摸鱼: 10, 勤奋: -5}}, {text: "维持一个“我很正常”的假象", scores: {内耗: 10, 社恐: 5}}, {text: "深刻哲学问题，摸鱼思考中", scores: {务虚: 10, 摸鱼: 5}}] },
-  { text: "想要哪种职场超能力？", opts: [{text: "瞬间完成所有任务", scores: {勤奋: 10, 摸鱼: -5}}, {text: "绝对隐身术，没人烦我", scores: {社恐: 10, 摸鱼: 5}}, {text: "读心术，老板在想啥", scores: {务虚: 10, 内耗: 5}}, {text: "时间局部停止，用于补觉", scores: {摸鱼: 10, 内耗: 5}}] },
-  { text: "最后一题的感受？", opts: [{text: "如释重负，交卷", scores: {摸鱼: 5}}, {text: "毫无波澜，打发时间", scores: {务虚: 5}}, {text: "纠结第7题是不是选错了", scores: {内耗: 10}}, {text: "满意，消耗了8分钟带薪时间", scores: {摸鱼: 10, 勤奋: -5}}] }
+  { text: "每天早上，你是怎么起床的？", opts: [{text: "闹钟响第一声就弹射起步，洗漱时构思待办事项", scores: {勤奋: 3}}, {text: "设置了8个连环闹钟，在死亡边缘痛苦爬起", scores: {摸鱼: 2, 内耗: 1}}, {text: "脑子里全是被工作支配的恐惧，熬到天亮自然醒", scores: {内耗: 3, 务虚: 2}}, {text: "灵魂拷问：打卡系统是不是反人类的发明？", scores: {摸鱼: 3}}] },
+  { text: "老板突然走过来，你的第一反应是？", opts: [{text: "肌肉记忆发作，Alt+Tab光速切换到工作文档", scores: {摸鱼: 3}}, {text: "虽什么也没做，但心跳飙升，疯狂反思自己", scores: {内耗: 3, 社恐: 2}}, {text: "无所畏惧，甚至主动迎上目光，见缝插针汇报进度", scores: {勤奋: 3}}, {text: "眉头紧锁，眼神失焦，假装进行宏观战略思考", scores: {务虚: 3}}] },
+  { text: "公司组织团建，你的心理活动是？", opts: [{text: "太棒了！展示社交魅力的好机会！", scores: {务虚: 2, 勤奋: 1}}, {text: "只关心：占用周末吗？能折算成工资吗？", scores: {摸鱼: 3}}, {text: "提前半个月就开始搜集各种请假理由", scores: {社恐: 3}}, {text: "肉体去了，灵魂没去。找个角落干饭，准点消失", scores: {社恐: 2, 内耗: 3}}] },
+  { text: "开会的时候，你通常在做什么？", opts: [{text: "全神贯注，认真记录老板说的每一句废话", scores: {勤奋: 3}}, {text: "表面看着PPT，实际上已经在笔记本画完动物园", scores: {摸鱼: 2, 务虚: 1}}, {text: "眼神空洞盯着前方，大脑运算今晚吃火锅还是烤肉", scores: {摸鱼: 3}}, {text: "没听别人说什么，全在脑内反复鞭尸发言口误", scores: {内耗: 3}}] },
+  { text: "同事问你“能帮我一个忙吗”，你的回答是？", opts: [{text: "“没问题！交给我吧！”（语气真诚）", scores: {勤奋: 3}}, {text: "“好的……”（微笑着答应，心里在流泪）", scores: {内耗: 3, 社恐: 2}}, {text: "警觉反问：“具体是什么事？需要多久？”", scores: {摸鱼: 2, 勤奋: 1}}, {text: "戴上耳机，盯住屏幕，进入物理隔绝状态", scores: {社恐: 3}}] },
+  { text: "收到不合理的需求，你会？", opts: [{text: "默默扛下所有，即使加班到半夜也要做完", scores: {勤奋: 2, 内耗: 2}}, {text: "立刻打开文档，写下800字有理有据的驳回邮件", scores: {务虚: 2, 勤奋: 2}}, {text: "嘴上说着“好的”，实际上随手扔进待办最底层", scores: {摸鱼: 3}}, {text: "一边机械敲键盘，一边默念：拿到奖金我就走", scores: {内耗: 3}}] },
+  { text: "公司群@所有人，你的第一反应是？", opts: [{text: "条件反射点开，三秒内回复：收到！老板辛苦了！", scores: {勤奋: 3, 务虚: 1}}, {text: "看见了，但只要没@我名字，就当作无事发生", scores: {摸鱼: 3}}, {text: "心里咯噔一下，生怕是自己负责的项目出了大娄子", scores: {内耗: 3, 社恐: 1}}, {text: "绝不做出头鸟，默默等别人回复了再跟队形", scores: {社恐: 2, 内耗: 1}}] },
+  { text: "你的电脑桌面是？", opts: [{text: "极度整洁，文件夹严格按照日期分类排列", scores: {勤奋: 3}}, {text: "乱七八糟，但在这种混沌中我能精准找到文件", scores: {务虚: 2, 摸鱼: 1}}, {text: "密密麻麻铺满草稿和报错，看着就让人窒息", scores: {内耗: 3, 勤奋: 2}}, {text: "极简主义，就一张壁纸，随时准备提桶跑路", scores: {摸鱼: 3, 社恐: 1}}] },
+  { text: "快下班了，但突然来了紧急任务？", opts: [{text: "立刻放下包，重新打开电脑，责任心不允许拖延", scores: {勤奋: 3, 内耗: 1}}, {text: "试探性问：这个急吗？明天一早给行吗？", scores: {摸鱼: 2, 勤奋: 1}}, {text: "默默坐回工位，但内心的怒火已经烧了三遍公司", scores: {内耗: 3, 勤奋: 2}}, {text: "完美运用“下班瞎”技能，装作没看到消息", scores: {摸鱼: 3}}] },
+  { text: "年会抽奖，你的心态是？", opts: [{text: "积极参与每个环节，觉得今年能中个大奖", scores: {勤奋: 2, 务虚: 2}}, {text: "毫无波澜，反正从小连再来一瓶都没中过", scores: {内耗: 2, 摸鱼: 1}}, {text: "心里祈祷：千万别抽中我！不想上台面对人！", scores: {社恐: 3}}, {text: "在算普照奖的破锅挂闲鱼能卖多少钱", scores: {摸鱼: 3, 务虚: 1}}] },
+  { text: "HR问你“对这份工作有什么期望”，真实想法？", opts: [{text: "钱多、事少、离家近，不要画饼，不要PUA", scores: {摸鱼: 3}}, {text: "希望能在一个有挑战的平台上实现个人价值", scores: {勤奋: 3, 务虚: 1}}, {text: "环境简单点，别有那么多破会，让我安静干活", scores: {社恐: 2, 内耗: 1}}, {text: "我想知道你们公司财务状况能不能撑过今年？", scores: {务虚: 3, 内耗: 2}}] },
+  { text: "下班后，你通常会？", opts: [{text: "打开行业网站或网课充电，生怕被时代淘汰", scores: {勤奋: 3}}, {text: "像一具尸体躺在沙发上，连呼吸都觉得累", scores: {内耗: 2, 摸鱼: 2}}, {text: "报复性熬夜刷手机，刷搞笑视频到凌晨3点", scores: {摸鱼: 3, 内耗: 1}}, {text: "躺在床上，满脑子都是白天的眼神，焦虑万分", scores: {内耗: 3}}] },
+  { text: "领导发来消息：“方便的时候来一下”，感受是？", opts: [{text: "拿起笔记立刻起身，肯定有重要项目给我", scores: {勤奋: 2, 务虚: 1}}, {text: "大脑瞬间检索：我最近三天做错了什么？", scores: {内耗: 3, 社恐: 1}}, {text: "故意等个十分钟再去，不能显得太卑微", scores: {摸鱼: 3, 务虚: 1}}, {text: "走过去时，脑内推演了三种灾难性谈话场景", scores: {务虚: 3, 内耗: 2}}] },
+  { text: "周五下午5:58，你的状态是？", opts: [{text: "电脑已关，包已背好，准备百米冲刺", scores: {摸鱼: 3}}, {text: "还在处理工作，只要活没干完，星期几没区别", scores: {勤奋: 3}}, {text: "死死盯着时钟，这最后120秒比前20年还长", scores: {内耗: 3}}, {text: "人还在工位，灵魂已飘到今晚聚餐的烧烤摊上", scores: {务虚: 2, 摸鱼: 1}}] },
+  { text: "你如何看待“职场PUA”？", opts: [{text: "我每天都在经历，并已经习惯了这种打压", scores: {内耗: 3, 社恐: 1}}, {text: "完全免疫。只要我不把公司当家，PUA就是浮云", scores: {摸鱼: 3}}, {text: "这年头哪有不PUA的公司，为了钱只能忍了", scores: {内耗: 2, 社恐: 2}}, {text: "专门收集证据，反向拿捏老板", scores: {务虚: 3, 勤奋: 1}}] },
+  { text: "你最常用的工作表情包是？", opts: [{text: "纯文字，或者自带的系统表情 [微笑]", scores: {勤奋: 2, 务虚: 2}}, {text: "各种虚伪的“好的谢谢”，掩饰内心无语", scores: {内耗: 3, 社恐: 2}}, {text: "最爱用 [狗头]，主打一个圆滑不背锅", scores: {摸鱼: 3}}, {text: "私聊里全是发疯、打砸、阴阳怪气的表情包", scores: {内耗: 3, 摸鱼: 1}}] },
+  { text: "你的工位上有什么？", opts: [{text: "只有电脑和笔，干净得像个随时可被换的零件", scores: {勤奋: 2, 社恐: 2}}, {text: "堆积如山的文件、咖啡杯和饼干渣", scores: {勤奋: 2, 内耗: 3}}, {text: "各种解压玩具、盲盒，硬生生装成了次卧", scores: {务虚: 3, 摸鱼: 2}}, {text: "什么也没有，连水杯都是一次性的，随时跑路", scores: {摸鱼: 3}}] },
+  { text: "你认为“努力工作”的意义是？", opts: [{text: "通过解决问题获得成就感，留下浓墨重彩的一笔", scores: {勤奋: 3, 务虚: 2}}, {text: "一场公平交易：出卖时间精力换钱，仅此而已", scores: {摸鱼: 3}}, {text: "害怕被淘汰，努力为了维持我很正常的假象", scores: {内耗: 3, 勤奋: 1}}, {text: "深刻的哲学问题，我现在每天摸鱼都在思考", scores: {务虚: 3, 内耗: 2}}] },
+  { text: "最想在公司拥有的超能力是？", opts: [{text: "瞬间完成所有任务（去做更多的任务！）", scores: {勤奋: 3}}, {text: "绝对隐身术（没人能看到我派活）", scores: {社恐: 3, 摸鱼: 2}}, {text: "读心术（想知道老板的饼是不是真的）", scores: {务虚: 3, 内耗: 2}}, {text: "让时间局部停止（在闹钟响或开长会时使用）", scores: {摸鱼: 3}}] },
+  { text: "看到这是最后一题（原本），你的感受是？", opts: [{text: "赶紧交卷看看自己是哪种奇葩", scores: {摸鱼: 2, 内耗: 1}}, {text: "毫无波澜，打发上班时间的乐子而已", scores: {务虚: 2}}, {text: "陷入沉思：刚才选得保守了？重做吗？", scores: {内耗: 3}}, {text: "非常满意，成功消耗了带薪工作时间", scores: {摸鱼: 3}}] },
+
+  // --- 新增题目 (21-30) ---
+  { text: "办公室饮水机没水了，你会？", opts: [{text: "主动扛起水桶换上，顺便锻炼臂力", scores: {勤奋: 3}}, {text: "口渴到极限也忍着，等下一个倒霉蛋换", scores: {摸鱼: 3, 社恐: 2}}, {text: "陷入沉思：换水到底在不在我的JD职责里？", scores: {务虚: 3, 内耗: 1}}, {text: "心惊肉跳走开，怕被看到经过却不换水", scores: {内耗: 3, 社恐: 1}}] },
+  { text: "午休时间，同事都在聊热门理财，你会？", opts: [{text: "默默打开电脑研报，拒绝无效社交", scores: {勤奋: 3}}, {text: "假装睡着，耳机里其实在放发疯文学", scores: {社恐: 3, 摸鱼: 1}}, {text: "大谈宏观经济走向，即便口袋里只有200块", scores: {务虚: 3, 摸鱼: 1}}, {text: "在心里嘲笑他们肯定会被割韭菜", scores: {内耗: 3}}] },
+  { text: "公司洗手间有人在隔间哭，你会？", opts: [{text: "假装没听见走人，拒绝情绪垃圾", scores: {摸鱼: 2, 社恐: 2}}, {text: "递张纸，并反思职场为何如此冷酷", scores: {内耗: 3, 勤奋: 1}}, {text: "回工位，脑内编排一出部门斗争大戏", scores: {务虚: 3, 摸鱼: 1}}, {text: "心跳加速，怀疑是不是我哪个眼神伤了她", scores: {内耗: 3, 社恐: 1}}] },
+  { text: "老板转发《公司就是你的家》，你会？", opts: [{text: "精读并留下300字深刻感悟评论", scores: {勤奋: 2, 务虚: 3}}, {text: "点赞（由于可见设置失败，内耗一整天）", scores: {内耗: 3, 社恐: 1}}, {text: "直接忽略：家能结清我房贷吗？", scores: {摸鱼: 3}}, {text: "复制粘贴别人的回复，主打一个稳健", scores: {社恐: 2, 摸鱼: 1}}] },
+  { text: "电脑突然死机还没保存，你会？", opts: [{text: "深呼吸，立刻凭记忆重新敲一遍", scores: {勤奋: 3}}, {text: "以此为借口，心安理得下楼喝杯咖啡", scores: {摸鱼: 3}}, {text: "盯着黑屏怀疑人生，想哭哭不出来", scores: {内耗: 3, 勤奋: 1}}, {text: "发朋友圈：老天都不让我加班，这是命", scores: {务虚: 3, 摸鱼: 1}}] },
+  { text: "周一开周会，你的精神面貌是？", opts: [{text: "目光炯炯，随时准备记录核心指令", scores: {勤奋: 3}}, {text: "肉体在工位，灵魂在二次元，离线办公", scores: {摸鱼: 3, 务虚: 1}}, {text: "反复确认今天穿搭，怕被大家孤立", scores: {社恐: 3, 内耗: 2}}, {text: "像一块由于耗尽电力而发黑的屏幕", scores: {内耗: 3, 摸鱼: 1}}] },
+  { text: "同事婚礼请客，你的第一念头是？", opts: [{text: "好机会！又可以扩展职场人脉资源", scores: {务虚: 3, 勤奋: 1}}, {text: "随礼就算了，还要占用我休息日？", scores: {摸鱼: 3}}, {text: "面对一桌陌生人，跟上刑有什么区别？", scores: {社恐: 3, 内耗: 1}}, {text: "在纠结回不回消息中内耗了一个下午", scores: {内耗: 3, 社恐: 1}}] },
+  { text: "项目上线前被叫停，你会？", opts: [{text: "反思哪里出漏洞，整理改版方案", scores: {勤奋: 3}}, {text: "表面惋惜，内心：耶！不用监测数据了！", scores: {摸鱼: 3}}, {text: "怀疑是不是高层派系斗争波及了我", scores: {务虚: 3, 内耗: 2}}, {text: "感觉努力全喂了狗，世界观崩塌", scores: {内耗: 3}}] },
+  { text: "电梯遇到老板，你会？", opts: [{text: "精准切入项目难点，寻求老板指导", scores: {勤奋: 2, 务虚: 2}}, {text: "疯狂按关门键，或者装作打重要电话", scores: {社恐: 3, 摸鱼: 1}}, {text: "尴尬不说话，空气静止结冰", scores: {内耗: 3, 社恐: 2}}, {text: "盯着显示屏，假装那是高科技产品", scores: {社恐: 2, 摸鱼: 2}}] },
+  { text: "末日将至，今天你打算？", opts: [{text: "站好最后一班岗，写完交接文档", scores: {勤奋: 3}}, {text: "辞职，顺便把老板椅子搬到楼下烧了", scores: {摸鱼: 3, 务虚: 1}}, {text: "把自己锁在家里，静候虚无降临", scores: {内耗: 3, 社恐: 1}}, {text: "写告别长文，思考末日后怎么变现", scores: {务虚: 3, 勤奋: 1}}] }
 ];
 
-// 定义 15 个人格，包含单项王、复合王、平衡王
 const types = [
-  { code: "MALO", name: "吗喽", color: "#6D4C41", desc: "听话好使，给个香蕉就干活，不给就原地发疯。", tags: ["吗喽文化", "听话好使"], quote: "老板，今天的香蕉给两根行吗？", cond: s => s.勤奋 >= 50 && s.内耗 >= 50 },
-  { code: "SHIT", name: "狗屎人", color: "#795548", desc: "职场逻辑黑洞，不仅不干活，还能把代码全搞崩。", tags: ["逻辑粉碎机", "搅屎棍"], quote: "只要我不尴尬，崩溃的就是同事。", cond: s => s.摸鱼 >= 60 && s.内耗 >= 40 },
-  { code: "ATM2", name: "ATM机", color: "#00BCD4", desc: "你是老板的帕拉梅拉众筹合伙人，全靠你奉献。", tags: ["人肉提款机", "无私"], quote: "老板的油箱里有我一份力。", cond: s => s.勤奋 >= 60 && s.务虚 >= 40 },
-  { code: "DRUN-K", name: "酒鬼", color: "#7E57C2", desc: "不喝两口根本没法面对这些甲方需求。", tags: ["宿醉办公", "摇摇晃晃"], quote: "这代码，得朦胧着写才对味。", cond: s => s.摸鱼 >= 50 && s.务虚 >= 50 },
-  { code: "WOC!", name: "握草人", color: "#009688", desc: "除了感叹词，你已经丧失了正常的社交语言。", tags: ["震惊党", "情绪极化"], quote: "WOC！这公司还没倒闭？", cond: s => s.内耗 >= 50 && s.社恐 >= 50 },
-  { code: "DEAD", name: "死者", color: "#000000", desc: "物理意义上还活着，灵魂早已飘向远方。", tags: ["僵尸代码", "物理惯性"], quote: "坟头草还没长，因为公司空调太冷。", cond: s => s.max === '内耗' && s.内耗 > 80 },
-  { code: "FUCK", name: "草者", color: "#4CAF50", desc: "头顶一片绿意，心中万马奔腾，绝不被卷。", tags: ["拒绝被割", "原地躺平"], quote: "只要我不发力，资本就割不到我。", cond: s => s.max === '摸鱼' && s.摸鱼 > 80 },
-  { code: "SOLO", name: "孤儿", color: "#212121", desc: "独狼一个，部门只有你，午饭只有你。", tags: ["单机玩家", "查无此人"], quote: "别拉我进群，我会退出的。", cond: s => s.max === '社恐' && s.社恐 > 80 },
-  { code: "FAKE", name: "伪人", color: "#D4AF37", desc: "模仿人类的专家，面具之下空无一物。", tags: ["皮囊大师", "假装在线"], quote: "收到，好的，我马上去办（其实不办）。", cond: s => s.max === '务虚' && s.务虚 > 80 },
-  { code: "ATM1", name: "送钱者", color: "#FF5252", desc: "职场慈善家，医保克星，倒贴上班第一人。", tags: ["纯倒贴", "用命换钱"], quote: "工资交完医保，还得给老板磕一个。", cond: s => s.max === '勤奋' && s.勤奋 > 80 },
-  { code: "ZZZZ", name: "装死者", color: "#9E9E9E", desc: "只要装死够久，活儿就会飘到别人身上。", tags: ["由于太闲而忙碌", "断网"], quote: "信号不好，刚看到（三天前的消息）。", cond: s => s.max === '摸鱼' },
-  { code: "IMSB", name: "自我攻击者", color: "#607D8B", desc: "还没被老板骂，已经把自己骂得体无完肤。", tags: ["自卑巅峰", "道歉机器"], quote: "对不起，我又呼吸了公司的空气。", cond: s => s.max === '内耗' },
-  { code: "OJB-K", name: "无所谓人", color: "#FF9800", desc: "万事皆可，心态佛系到令人发指。", tags: ["随波逐流", "活着就行"], quote: "扣工资也行，加班也行，随便吧。", cond: s => s.avg },
-  { code: "BOSX", name: "老板逆子", color: "#E91E63", desc: "反向拿捏，不仅不听话，还想篡位。", tags: ["职场判官", "逆子"], quote: "这个会没必要开，我回家了。", cond: s => s.max === '务虚' },
-  { code: "QUIT", name: "辞职狂热者", color: "#F44336", desc: "每天精神离职一百遍，现实里稳如泰山。", tags: ["口嗨专家", "房贷奴隶"], quote: "辞职信在草稿箱放了半年了。", cond: s => true }
+  // 1. 极端复合 (高优先级)
+  { code: "SHIT", name: "狗屎人", color: "#795548", desc: "干啥啥不行，坏事第一名。你走过的地方代码会崩溃。你是职场中移动的“逻辑黑洞”。", tags: ["职场瘟神", "逻辑粉碎机"], quote: "我敲的每一行代码都有它自己的想法。只要我不尴尬，崩溃的就是甲方。", cond: s => s.摸鱼 >= 22 && s.内耗 >= 22 },
+  { code: "MALO", name: "吗喽", color: "#6D4C41", desc: "你是一只听话的吗喽。给个香蕉就干活，不给香蕉就原地发疯。你是杂耍场最卖力的那个。", tags: ["吗喽文化", "听话好使"], quote: "斯哈斯哈，老板给香蕉了，我敲敲敲！等下，香蕉怎么只有半根？先发个疯再说！", cond: s => s.勤奋 >= 22 && s.内耗 >= 22 },
+  { code: "DRUN-K", name: "酒鬼", color: "#7E57C2", desc: "不喝两口没法面对需求。醉了反而能写出完美的方案，因为这时候你也看不清甲方在说什么了。", tags: ["精神麻醉", "摇摇晃晃"], quote: "清醒的人活不下去。不整两口我怎么跟甲方灵魂共振？", cond: s => s.摸鱼 >= 18 && s.务虚 >= 18 },
+  { code: "WOC!", name: "握草人", color: "#009688", desc: "一生都在震惊中度过。老板发消息：WOC！这种公司还没倒闭：WOC！", tags: ["捧场王", "只会这一句"], quote: "除了『握草』我已经丧失了语言能力。这破公司每天都能整点新花样。", cond: s => s.内耗 >= 18 && s.社恐 >= 18 },
+  
+  // 2. 极端单一
+  { code: "dead", name: "死者", color: "#000000", desc: "三年前你就死在工位上了。现在的你只是长期吹空调产生的物理惯性在进行反射。安息吧。", tags: ["魂归西天", "物理惯性"], quote: "别吵，我在靠空调续命。如果工位能长出蘑菇，我头上大概已经是一片森林了。", cond: s => s.内耗 >= 32 },
+  { code: "FUCK", name: "草者", color: "#4CAF50", desc: "头顶绿草，心中全是草泥马。只要我不努力，老板就永远割不到我的韭菜。", tags: ["拒绝被卷", "植物人状态"], quote: "只要我不发力，资本家就剥削不到我。今天也是把公司羊毛薅秃的一天。", cond: s => s.摸鱼 >= 32 },
+  { code: "SOLO", name: "孤儿", color: "#212121", desc: "没有同事朋友。你就像是一块瓷砖，存在感极低，但被踩得很疼。", tags: ["单机玩家", "查无此人"], quote: "别跟我说话，人类只会让我掉电。代码和文档是我的结界。", cond: s => s.社恐 >= 22 },
+  { code: "FAKE", name: "伪人", color: "#D4AF37", desc: "完美的模仿机器。模仿在干活、在开会。除了想下班的欲望是真的，其余一切都是假的。", tags: ["皮囊大师", "假装在线"], quote: "面具戴久了，我都忘了本来到底想骂什么。『收到，好的』——已自动回复。", cond: s => s.务虚 >= 28 },
+  
+  // 3. 动态对比
+  { code: "IMSB", name: "自我攻击者", color: "#607D8B", desc: "老板还没开口，你已经把自己骂得体无完肤。你不是在内耗，而是在体内举办自己的葬礼。", tags: ["道歉机器", "自卑巅峰"], quote: "对不起，我又呼吸了公司的空气。老板皱眉肯定是我的错…", cond: s => s.内耗 == Math.max(s.勤奋, s.摸鱼, s.社恐, s.务虚, s.内耗) },
+  { code: "ZZZZ", name: "装死者", color: "#BDBDBD", desc: "躺得够平，鞭子就抽不到。只要装死够久，任务就会顺延给那个倒霉蛋。", tags: ["假装断网", "生存大师"], quote: "敌不动我不动，敌一动我装死。已读不回的时间够长，活儿就会消失。", cond: s => s.摸鱼 == Math.max(s.勤奋, s.摸鱼, s.社恐, s.务虚, s.内耗) },
+  { code: "ATM1", name: "送钱者", color: "#FF5252", desc: "上班是为了把医保扣完。工资最后都打给社会了，你是职场慈善家。", tags: ["用命换钱", "职场慈善"], quote: "打车50，买药100……算下来今天来上班我还倒贴了60。", cond: s => s.勤奋 == Math.max(s.勤奋, s.摸鱼, s.社恐, s.务虚, s.内耗) },
+  { code: "ATM2", name: "ATM机", color: "#00BCD4", desc: "每一滴汗水都化作老板马尔代夫的一粒沙子。给老板的法拉利众筹成功。", tags: ["众筹老板", "老板逆子"], quote: "我是一块砖，哪里需要哪里搬。老板的帕拉梅拉有我一个轮胎功劳！", cond: s => s.务虚 == Math.max(s.勤奋, s.摸鱼, s.社恐, s.务虚, s.内耗) },
+  
+  // 4. 兜底
+  { code: "OJB-K", name: "无所谓人", color: "#FF9800", desc: "超脱了。老板骂你你点头。你不是心态好，你是已经对世界彻底失望了。", tags: ["无欲无求", "活着就行"], quote: "背锅？OK。加班？OK。我这具躯壳已经看透了职场的红尘。", cond: s => (s.勤奋 + s.内耗 + s.务虚) <= 30 },
+  { code: "QUIT", name: "辞职狂热者", color: "#F44336", desc: "每天心里辞职800次。脚被房贷链条锁在桌腿上。", tags: ["口嗨专家", "精神离职"], quote: "辞职信已经写到第500个版本了。如果不是下个月的花呗，我发誓现在就掀办公桌！", cond: s => true }
 ];
 
 let scores = {勤奋: 0, 摸鱼: 0, 社恐: 0, 务虚: 0, 内耗: 0};
@@ -147,6 +167,7 @@ function startTest() {
 function showQ() {
     const q = questions[current];
     document.getElementById('q-num').textContent = `第 ${current + 1} 题`;
+    document.getElementById('q-total').textContent = `共 ${questions.length} 题`;
     document.getElementById('prog').style.width = `${(current / questions.length) * 100}%`;
     document.getElementById('q-text').textContent = q.text;
     document.getElementById('q-hint').textContent = q.hint || '';
@@ -159,11 +180,12 @@ function showQ() {
         b.onclick = () => pick(i);
         opts.appendChild(b);
     });
+    window.scrollTo(0, 0);
 }
 
 function pick(i) {
     const s = questions[current].opts[i].scores;
-    Object.keys(s).forEach(k => scores[k] += s[k]);
+    Object.keys(s).forEach(k => { if(s[k]) scores[k] += s[k]; });
     current++;
     if (current >= questions.length) showResult(); else showQ();
 }
@@ -171,39 +193,28 @@ function pick(i) {
 function showResult() {
     document.getElementById('quiz-screen').classList.remove('active');
     document.getElementById('result-screen').classList.add('active');
-
-    const keys = Object.keys(scores);
-    // 随机打乱防止平手，并计算最高分
-    keys.sort(() => Math.random() - 0.5); 
-    const maxDim = keys.reduce((a, b) => scores[a] > scores[b] ? a : b);
-    
-    // 计算平均性
-    const vals = Object.values(scores);
-    const avgScore = vals.reduce((a, b) => a + b) / 5;
-    const isAvg = vals.every(v => Math.abs(v - avgScore) < 15);
-
-    scores.max = maxDim;
-    scores.avg = isAvg;
-
     const type = types.find(t => t.cond(scores)) || types[types.length - 1];
 
-    // 处理特殊文件名
     let imgFile = type.code + ".png";
-    if (type.code === 'DRUN-K') imgFile = "DRUN-K.png";
+    if (type.code === 'DRUN-K') imgFile = 'DRUN-K).png';
+    if (type.code === 'dead') imgFile = 'dead.png';
 
     document.getElementById('r-header').innerHTML = `
+        <div class="result-tag">你的打工人格类型</div>
         <div class="result-code" style="color:${type.color}">${type.code}</div>
         <div class="result-name">${type.name}</div>
         <p class="result-desc">${type.desc}</p>
         <div class="tag-row">${type.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
         <div class="poster-box">
-            <img src="${imgFile}" alt="${type.name}" class="poster-img" onerror="this.src='https://via.placeholder.com/300x300?text=${type.code}'">
-            <p style="font-size: 11px; color: #999; margin-top: 5px;">长按保存图片</p>
+            <div class="poster-title">你的职场灵魂画像</div>
+            <img src="${imgFile}" alt="${type.name}" class="poster-img">
+            <p style="font-size: 11px; color: #999; margin-top: 5px;">长按保存图片，分享你的职场本色</p>
         </div>
     `;
 
     document.getElementById('r-body').innerHTML = `
         <div class="inner-voice-box">
+            <div class="inner-voice-title">你的职场内心 OS</div>
             <div class="inner-voice-text">“${type.quote}”</div>
         </div>
     `;
